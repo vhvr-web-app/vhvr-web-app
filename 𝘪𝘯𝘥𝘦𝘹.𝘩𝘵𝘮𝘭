@@ -3,341 +3,110 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080b18">
-  <meta name="description" content="VHVR WEB APP - Futuristic digital dashboard dan pusat pengembangan VHVR BOT.">
-  <title>VHVR | Futuristic Web App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>VHVR Gift Hub</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
   <style>
-    :root {
-      --bg: #080b18;
-      --panel: #111831;
-      --border: #28345a;
-      --text: #f4f6ff;
-      --muted: #a7b2d3;
-      --blue: #7387ff;
-      --purple: #b16cff;
-      --green: #69f0c0;
-    }
-
     * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 90px;
-    }
 
     body {
       margin: 0;
-      background:
-        radial-gradient(ellipse at 80% 0%, #29205b66, transparent 40%),
-        radial-gradient(ellipse at 0% 35%, #153b6550, transparent 35%),
-        var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, Arial, sans-serif;
+      padding: 30px 18px;
       min-height: 100vh;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: white;
+      background: linear-gradient(145deg, #111827, #312e81);
     }
-
-    a { color: inherit; }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 17px 6%;
-      background: #080b18eF;
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(16px);
-    }
-
-    .logo {
-      font-size: 23px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: var(--blue);
-      white-space: nowrap;
-    }
-
-    .logo span { color: white; }
-
-    nav {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      font-size: 13px;
-      text-decoration: none;
-      color: var(--muted);
-    }
-
-    nav a:hover { color: white; }
 
     main {
-      width: min(1080px, 100%);
-      margin: auto;
-      padding: 35px 6%;
+      max-width: 440px;
+      margin: 35px auto;
     }
 
-    .hero { padding: 48px 0 35px; }
+    .gift { font-size: 72px; }
 
-    .eyebrow {
-      color: var(--purple);
-      letter-spacing: 3px;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    h1 {
-      font-size: clamp(37px, 9vw, 66px);
-      line-height: 1.08;
-      letter-spacing: -2px;
-      margin: 17px 0;
-    }
-
-    .gradient {
-      background: linear-gradient(90deg, #8fa0ff, #d09aff);
-      color: transparent;
-      background-clip: text;
-      -webkit-background-clip: text;
-    }
+    h1 { font-size: 30px; }
 
     p {
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 14px;
-    }
-
-    .hero p { max-width: 590px; }
-
-    .button {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 13px 19px;
-      border-radius: 10px;
-      color: white;
-      font-weight: 700;
-      font-size: 13px;
-      text-decoration: none;
-      background: linear-gradient(110deg, #5369ef, #984be4);
-      box-shadow: 0 8px 30px #735bff35;
-    }
-
-    .button.secondary {
-      background: #151d38;
-      border: 1px solid var(--border);
-      box-shadow: none;
-      margin-left: 7px;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
-      border: 1px solid #24634e;
-      border-radius: 30px;
-      color: var(--green);
-      background: #10312688;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .dot {
-      width: 7px;
-      height: 7px;
-      background: var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--green);
-    }
-
-    section { margin-top: 45px; }
-
-    .section-head { margin-bottom: 20px; }
-
-    .section-head h2 {
-      font-size: 25px;
-      margin: 0 0 7px;
-    }
-
-    .section-head p { margin: 0; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
-      gap: 15px;
+      color: #dbeafe;
+      line-height: 1.7;
     }
 
     .card {
-      padding: 22px;
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      background: linear-gradient(145deg, #151d37, #0c1123);
-      transition: transform .2s, border-color .2s;
+      margin-top: 28px;
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.15);
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--blue);
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 15px;
+      border: 0;
+      border-radius: 12px;
+      background: #a5b4fc;
+      color: #111827;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    .icon {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 13px;
-      background: #252b53;
-      font-size: 24px;
-      margin-bottom: 15px;
-    }
-
-    .card h3 { margin: 0 0 8px; font-size: 17px; }
-    .card p { margin: 0; font-size: 13px; }
-
-    .panel {
-      padding: 25px;
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      background: #10162b;
-    }
-
-    .panel h3 { margin-top: 0; }
-
-    .tag {
-      display: inline-block;
-      margin: 4px 5px 4px 0;
-      padding: 7px 10px;
-      border-radius: 7px;
-      color: #c4cbff;
-      background: #242b4d;
-      font-size: 11px;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 25px 6%;
-      text-align: center;
-      color: #8490b3;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    @media (max-width: 480px) {
-      header { padding: 15px 5%; }
-      .logo { font-size: 19px; }
-      nav { gap: 10px; }
-      nav a { font-size: 12px; }
-      main { padding: 25px 5%; }
-      .hero { padding-top: 38px; }
-      .button.secondary { margin-left: 0; }
+    #status {
+      overflow-wrap: anywhere;
+      font-size: 14px;
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <a class="logo" href="#beranda" style="text-decoration:none">VHVR<span>.</span></a>
-    <nav aria-label="Navigasi utama">
-      <a href="#beranda">Beranda</a>
-      <a href="#fitur">Fitur</a>
-      <a href="#tentang">Tentang</a>
-    </nav>
-  </header>
-
   <main>
-    <section class="hero" id="beranda" style="margin-top:0">
-      <div class="eyebrow">NEXT GENERATION DIGITAL EXPERIENCE</div>
-      <h1>Welcome to<br><span class="gradient">VHVR WEB APP</span></h1>
-      <p>
-        Pusat digital VHVR dengan tampilan futuristik, desain modern,
-        dan pengalaman yang nyaman di perangkat mobile maupun desktop.
-        Mari mulai membangun ekosistem VHVR.
-      </p>
-      <a class="button" href="#fitur">Jelajahi Fitur ↗</a>
-      <a class="button secondary" href="#tentang">Tentang VHVR</a>
-    </section>
+    <div class="gift">🎁</div>
+    <h1>VHVR Gift Hub</h1>
+    <p>Selamat datang di VHVR BOT!</p>
 
-    <div class="status">
-      <span class="dot"></span>
-      WEBSITE BERHASIL DIMUAT
-    </div>
+    <section class="card">
+      <h2>Gift Hub</h2>
+      <p>Aplikasi web VHVR Anda telah dimuat.</p>
 
-    <section id="fitur">
-      <div class="section-head">
-        <h2>Fitur Utama</h2>
-        <p>Fondasi awal ekosistem digital VHVR.</p>
-      </div>
+      <button id="start">🚀 Mulai</button>
+      <button id="close">Kembali ke Telegram</button>
 
-      <div class="cards">
-        <article class="card">
-          <div class="icon">🤖</div>
-          <h3>VHVR Telegram Bot</h3>
-          <p>Persiapkan integrasi bot Telegram, perintah otomatis, dan layanan interaktif.</p>
-        </article>
-
-        <article class="card">
-          <div class="icon">⚡</div>
-          <h3>Smart Experience</h3>
-          <p>Rancang layanan digital yang sederhana, cepat, dan mudah dikembangkan.</p>
-        </article>
-
-        <article class="card">
-          <div class="icon">🌌</div>
-          <h3>Futuristic Design</h3>
-          <p>Antarmuka gelap dengan aksen neon biru dan ungu serta tata letak responsif.</p>
-        </article>
-
-        <article class="card">
-          <div class="icon">📱</div>
-          <h3>Mobile Friendly</h3>
-          <p>Tampilan menyesuaikan ukuran layar HP Android, tablet, dan komputer.</p>
-        </article>
-
-        <article class="card">
-          <div class="icon">🛠️</div>
-          <h3>Future Development</h3>
-          <p>Fondasi untuk penambahan menu, layanan, dan koneksi backend pada tahap berikutnya.</p>
-        </article>
-
-        <article class="card">
-          <div class="icon">🔒</div>
-          <h3>Pengembangan Aman</h3>
-          <p>Jangan menaruh token rahasia atau kata sandi di kode website publik.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="tentang">
-      <div class="section-head">
-        <h2>Tentang VHVR</h2>
-        <p>Membangun pengalaman digital selangkah demi selangkah.</p>
-      </div>
-
-      <div class="panel">
-        <h3>VHVR Digital Experience</h3>
-        <p>
-          VHVR WEB APP merupakan halaman depan proyek VHVR.
-          Website ini menggunakan HTML dan CSS serta dapat dipublikasikan
-          melalui GitHub Pages. Integrasi bot Telegram dan layanan server
-          memerlukan konfigurasi terpisah.
-        </p>
-        <span class="tag">HTML5</span>
-        <span class="tag">CSS3</span>
-        <span class="tag">Responsive UI</span>
-        <span class="tag">GitHub Pages</span>
-      </div>
+      <p id="status">Siap digunakan.</p>
     </section>
   </main>
 
-  <footer>
-    <strong>VHVR WEB APP</strong><br>
-    Explore the Future. Build Beyond Limits.<br>
-    © 2026 VHVR. Dibuat untuk pengembangan digital.
-  </footer>
+  <script>
+    const tg = window.Telegram?.WebApp;
+    const status = document.getElementById("status");
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
+
+    document.getElementById("start").onclick = function () {
+      if (tg) {
+        tg.showAlert("Selamat datang di VHVR Gift Hub!");
+      } else {
+        status.textContent =
+          "Halaman aktif. Buka melalui Telegram untuk fitur Mini App.";
+      }
+    };
+
+    document.getElementById("close").onclick = function () {
+      if (tg) {
+        tg.close();
+      } else {
+        status.textContent =
+          "Silakan kembali ke Telegram secara manual.";
+      }
+    };
+  </script>
 </body>
 </html>
