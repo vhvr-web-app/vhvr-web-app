@@ -3,131 +3,73 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080b16">
-<title>VHVR BOT | Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VHVR | Futuristic Dashboard</title>
 <style>
-:root{--bg:#080b16;--panel:#12182b;--line:#293452;--blue:#6ba5ff;--purple:#ad83ff;--text:#f5f6ff;--muted:#9ba6c5}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top left,#252050,transparent 48%),var(--bg);color:var(--text);font-family:system-ui,Arial,sans-serif;min-height:100vh}
-main{max-width:800px;margin:auto;padding:22px 16px 110px}
-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:28px}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#568aff,#a16cff);font-size:25px;box-shadow:0 0 25px #775cff55}
-h1{font-size:19px;letter-spacing:1px;margin:0}
-.muted{color:var(--muted);font-size:12px}
-.status{font-size:11px;color:#69edbf;border:1px solid #286957;background:#10372e;padding:7px 9px;border-radius:20px}
-.hero{padding:25px 20px;border:1px solid #454174;border-radius:23px;background:linear-gradient(135deg,#24254b,#12182b);margin-bottom:25px}
-.eyebrow{font-size:11px;letter-spacing:2px;color:#b7a5ff;font-weight:bold}
-h2{font-size:30px;line-height:1.2;margin:13px 0}
-.gradient{background:linear-gradient(90deg,#75bdff,#c39aff);background-clip:text;color:transparent}
-p{color:#b5bfdc;line-height:1.7;font-size:14px}
-button{cursor:pointer;font:inherit}
-.primary,.secondary{border-radius:11px;padding:12px 15px;font-weight:bold}
-.primary{border:0;background:linear-gradient(100deg,#578aff,#9765ed);color:white}
-.secondary{border:1px solid #465071;background:#ffffff08;color:white}
-.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
-.section{font-size:17px;margin:27px 0 13px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{background:linear-gradient(145deg,#171e33,#101526);border:1px solid var(--line);border-radius:17px;padding:16px;min-width:0}
-.card .emoji{font-size:25px;margin-bottom:12px}
-.label{color:var(--muted);font-size:12px}
-.value{font-size:18px;font-weight:bold;margin-top:6px;overflow-wrap:anywhere}
-.note{color:var(--muted);font-size:12px;line-height:1.6;margin-top:7px}
-.page{display:none}.page.active{display:block}
-.feature{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
-.feature:last-child{margin-bottom:0}
-.feature-icon{background:#7567ff22;border-radius:12px;padding:10px;font-size:21px}
-.feature h3{font-size:14px;margin:2px 0 5px}
-.feature p{font-size:12px;margin:0}
-.wide{grid-column:1/-1}
-nav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:min(440px,calc(100% - 24px));display:flex;gap:5px;padding:8px;border:1px solid #394361;border-radius:18px;background:#111629f5;box-shadow:0 8px 30px #0008;z-index:5}
-nav button{flex:1;border:0;border-radius:11px;background:transparent;color:var(--muted);padding:8px 3px;font-size:11px}
-nav button span{display:block;font-size:20px;margin-bottom:3px}
-nav button.active{background:#665bff30;color:#d0c9ff}
-footer{text-align:center;color:#737e9f;font-size:11px;margin-top:28px}
-#toast{display:none;position:fixed;z-index:9;bottom:95px;left:50%;transform:translateX(-50%);background:#252d46;border:1px solid #53648a;border-radius:12px;padding:12px 15px;width:max-content;max-width:90%;font-size:13px}
-@media(min-width:600px){main{padding-top:35px}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{padding:35px}.features{grid-template-columns:repeat(2,minmax(0,1fr))}}
+body{margin:0;font-family:Arial,sans-serif;background:#080b18;color:#f3f5ff}
+header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #252b48;background:#0c1022}
+.logo{font-size:23px;font-weight:900;letter-spacing:3px;color:#8d9cff}
+nav a{color:#c9d0ef;text-decoration:none;margin-left:16px;font-size:14px}
+main{max-width:1100px;margin:auto;padding:48px 6%}
+.hero{padding:35px 0 45px}
+.tag{color:#9c8cff;font-size:12px;letter-spacing:3px}
+h1{font-size:clamp(36px,8vw,64px);margin:16px 0;line-height:1.08}
+h1 span{color:#8998ff}
+p{color:#aab3d2;line-height:1.8}
+.btn{display:inline-block;background:linear-gradient(100deg,#5865f2,#9b5de5);color:white;padding:13px 21px;border-radius:10px;text-decoration:none;margin-top:12px}
+.section-title{margin-top:35px;font-size:25px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px;margin-top:20px}
+.card{background:linear-gradient(145deg,#151b34,#0e1225);border:1px solid #293354;border-radius:16px;padding:22px}
+.card .icon{font-size:28px}
+.card h3{margin-bottom:8px}
+.status{display:inline-block;color:#77f2c0;background:#12372f;padding:7px 11px;border-radius:20px;font-size:12px}
+footer{text-align:center;padding:30px;color:#7782a7;border-top:1px solid #252b48;margin-top:55px;font-size:13px}
 </style>
 </head>
 <body>
-<main>
 <header>
-<div class="brand">
-<div class="logo">⚡</div>
-<div><h1>VHVR <span class="gradient">BOT</span></h1><div class="muted">FUTURE STARTS HERE</div></div>
-</div>
-<div class="status">● WEB ONLINE</div>
+  <div class="logo">VHVR<span style="color:white">.</span></div>
+  <nav>
+    <a href="#home">Beranda</a>
+    <a href="#fitur">Fitur</a>
+    <a href="#tentang">Tentang</a>
+  </nav>
 </header>
+<main>
+  <section class="hero" id="home">
+    <div class="tag">NEXT GENERATION DIGITAL EXPERIENCE</div>
+    <h1>Selamat datang di<br><span>VHVR WEB APP</span></h1>
+    <p>Dashboard digital dengan desain futuristik, sederhana, dan modern. Bangun pengalaman baru bersama VHVR.</p>
+    <a class="btn" href="#fitur">Jelajahi Fitur ↗</a>
+  </section>
 
-<section id="home" class="page active">
-<div class="hero">
-<div class="eyebrow">WELCOME TO THE SYSTEM</div>
-<h2>Dashboard <span class="gradient">Futuristik</span></h2>
-<p>Selamat datang di pusat kontrol VHVR BOT. Jelajahi antarmuka digital modern dengan desain neon biru dan ungu.</p>
-<div class="actions">
-<button class="primary" onclick="showPage('features')">✦ Jelajahi fitur</button>
-<button class="secondary" onclick="showPage('about')">Tentang VHVR</button>
-</div>
-</div>
-<h2 class="section">Ringkasan sistem</h2>
-<div class="grid">
-<div class="card"><div class="emoji">🌐</div><div class="label">Website</div><div class="value" style="color:#69edbf">ONLINE</div><div class="note">Halaman berhasil dimuat</div></div>
-<div class="card"><div class="emoji">🤖</div><div class="label">Telegram Bot</div><div class="value">Belum diuji</div><div class="note">Perlu pengujian bot</div></div>
-<div class="card"><div class="emoji">📱</div><div class="label">Platform</div><div class="value">Telegram</div><div class="note">Siap dikembangkan</div></div>
-<div class="card"><div class="emoji">✨</div><div class="label">Antarmuka</div><div class="value">VHVR UI</div><div class="note">Dashboard interaktif</div></div>
-</div>
-<h2 class="section">Akses cepat</h2>
-<div class="grid">
-<button class="card" style="color:white;text-align:left" onclick="showPage('features')"><div class="emoji">🧩</div><b>Fitur</b><div class="note">Jelajahi menu dashboard</div></button>
-<button class="card" style="color:white;text-align:left" onclick="showPage('about')"><div class="emoji">👾</div><b>Tentang bot</b><div class="note">Informasi proyek VHVR</div></button>
-</div>
-</section>
+  <div class="status">● WEBSITE ONLINE</div>
+  <h2 class="section-title" id="fitur">Fitur Utama</h2>
+  <div class="cards">
+    <article class="card">
+      <div class="icon">🤖</div>
+      <h3>VHVR Telegram Bot</h3>
+      <p>Area untuk pengembangan bot Telegram dan perintah otomatis.</p>
+    </article>
+    <article class="card">
+      <div class="icon">⚡</div>
+      <h3>Respons Cepat</h3>
+      <p>Rancang pengalaman pengguna yang ringan dan mudah digunakan.</p>
+    </article>
+    <article class="card">
+      <div class="icon">🌌</div>
+      <h3>Desain Futuristik</h3>
+      <p>Tampilan gelap dengan aksen neon biru dan ungu yang responsif.</p>
+    </article>
+  </div>
 
-<section id="features" class="page">
-<div class="eyebrow">EXPLORE THE SYSTEM</div><h2 class="section">Fitur Dashboard</h2>
-<div class="grid features">
-<div class="card"><div class="feature"><div class="feature-icon">⚡</div><div><h3>Desain futuristik</h3><p>Warna neon dan kartu modern.</p></div></div></div>
-<div class="card"><div class="feature"><div class="feature-icon">📲</div><div><h3>Ramah Android</h3><p>Menyesuaikan ukuran layar HP.</p></div></div></div>
-<div class="card"><div class="feature"><div class="feature-icon">🧭</div><div><h3>Navigasi interaktif</h3><p>Pindah menu tanpa memuat ulang.</p></div></div></div>
-<div class="card"><div class="feature"><div class="feature-icon">🔧</div><div><h3>Mudah dikembangkan</h3><p>HTML, CSS, dan JavaScript.</p></div></div></div>
-</div>
-<div class="card" style="margin-top:13px"><b>🔌 Status integrasi</b><p>Dashboard ini belum terhubung ke backend atau API Telegram. Integrasi dilakukan pada tahap berikutnya.</p><button class="secondary" onclick="showPage('about')">Informasi proyek</button></div>
-</section>
-
-<section id="about" class="page">
-<div class="eyebrow">PROJECT INFORMATION</div><h2 class="section">Tentang VHVR BOT</h2>
-<div class="card"><div class="emoji">⚡</div><h2>VHVR BOT</h2>
-<p>Dashboard web futuristik untuk proyek bot Telegram VHVR. Antarmuka ini dapat dikembangkan menjadi Telegram Mini App.</p>
-<div class="feature"><div class="feature-icon">🌐</div><div><h3>Hosting website</h3><p>GitHub Pages</p></div></div>
-<div class="feature"><div class="feature-icon">🤖</div><div><h3>Platform bot</h3><p>Telegram — konfigurasi terpisah diperlukan.</p></div></div>
-<button class="primary" onclick="notice('Antarmuka VHVR BOT berjalan. Integrasi Telegram belum diatur.')">✓ Periksa antarmuka</button>
-</div>
-<div class="card" style="margin-top:13px"><b>🔐 Catatan keamanan</b><p>Jangan pernah memasukkan token rahasia bot Telegram ke dalam file HTML.</p></div>
-</section>
-<footer>VHVR BOT © 2026 · DIGITAL EXPERIENCE</footer>
+  <h2 class="section-title" id="tentang">Tentang VHVR</h2>
+  <div class="card">
+    <h3>VHVR Digital Experience</h3>
+    <p>Website ini adalah halaman depan VHVR. Integrasi backend, database, dan respons bot Telegram perlu dikonfigurasi secara terpisah.</p>
+  </div>
 </main>
-
-<nav aria-label="Navigasi utama">
-<button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>Beranda</button>
-<button data-page="features" onclick="showPage('features')"><span>✧</span>Fitur</button>
-<button data-page="about" onclick="showPage('about')"><span>◈</span>Tentang</button>
-</nav>
-<div id="toast" role="status" aria-live="polite"></div>
-
-<script>
-function showPage(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
-document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
-window.scrollTo({top:0,behavior:'smooth'});
-}
-let toastTimer;
-function notice(message){
-const t=document.getElementById('toast');
-t.textContent=message;t.style.display='block';
-clearTimeout(toastTimer);
-toastTimer=setTimeout(()=>t.style.display='none',3000);
-}
-</script>
+<footer>© 2026 VHVR WEB APP · Dibuat untuk pengalaman digital yang lebih modern</footer>
 </body>
 </html>
