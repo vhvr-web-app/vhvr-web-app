@@ -1,16 +1,27 @@
-## Hi there 👋
+# VHVR Web App 🎁
 
-<!--
-**vhvr-web-app/vhvr-web-app** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Selamat datang di VHVR Gift Hub!
 
-Here are some ideas to get you started:
+VHVR Gift Hub adalah halaman web untuk VHVR BOT di Telegram.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Fitur
+- Halaman utama Gift Hub
+- Tampilan sederhana dan mudah digunakan
+- Dapat diakses melalui browser
+- Disiapkan untuk integrasi dengan Telegram Mini App
+
+## Cara Membuka
+Buka website VHVR Web App melalui browser atau tombol Gift Hub di Telegram.
+
+## Teknologi
+- HTML
+- CSS
+- JavaScript
+- GitHub Pages
+
+## Status
+Dalam pengembangan.
+
+---
+© 2026 VHVR Web App
+
