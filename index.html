@@ -137,7 +137,20 @@ required>
 <option value="OVO">OVO</option>
 <option value="Transfer Bank">Transfer Bank</option>
 </select>
+<div id="qrisBox" style="display:none;text-align:center">
+  <h3>💳 Bayar dengan QRIS DANA Bisnis</h3>
+  <img src="qris.png" alt="QRIS VHVR STORE"
+       style="width:100%;max-width:280px;border-radius:12px">
+  <p>Scan QRIS menggunakan aplikasi pembayaran.</p>
+  <p>Bayar sesuai harga pesanan.</p>
+</div>
 
+<script>
+document.getElementById("pembayaran").addEventListener("change", function() {
+  document.getElementById("qrisBox").style.display =
+    this.value === "QRIS" ? "block" : "none";
+});
+</script>
 <button id="kirim" type="submit">
 📩 Kirim Pesanan
 </button>
