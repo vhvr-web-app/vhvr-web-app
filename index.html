@@ -1,143 +1,188 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VHVR STORE</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0b1020;
-      color: white;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-    .card {
-      background: #151d33;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-    }
-    input, select, textarea, button {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 13px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #354361;
-      font-size: 15px;
-    }
-    input, select, textarea {
-      background: #0b1224;
-      color: white;
-    }
-    button {
-      background: #6ee7b7;
-      color: #08221a;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    #status {
-      white-space: pre-wrap;
-      line-height: 1.5;
-      margin-top: 12px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VHVR STORE</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif}
+header{background:linear-gradient(135deg,#2563eb,#7c3aed);padding:30px 18px;text-align:center}
+header h1{margin:0;font-size:30px}
+header p{color:#e0e7ff}
+main{max-width:650px;margin:auto;padding:15px}
+.card{background:#18223b;border-radius:15px;padding:18px;margin-bottom:15px}
+h2{color:#7dd3fc}
+.item{background:#10182c;border:1px solid #334155;border-radius:10px;padding:12px;margin:10px 0}
+.item b{display:block;margin-bottom:5px}
+.item span{color:#cbd5e1;font-size:13px}
+input,select,textarea{width:100%;padding:13px;margin:9px 0;background:#0b1020;border:1px solid #475569;border-radius:8px;color:white;font-size:15px}
+textarea{min-height:100px}
+button{width:100%;padding:15px;background:#22c55e;color:#052e16;border:0;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.6}
+#status{margin-top:14px;line-height:1.5}
+footer{text-align:center;color:#94a3b8;padding:20px;font-size:12px}
+</style>
 </head>
 <body>
 
-  <div class="card">
-    <h1>VHVR STORE</h1>
-    <p>Layanan digital dan freelance online.</p>
-  </div>
+<header>
+<h1>🛍️ VHVR STORE</h1>
+<p>Layanan Digital & Freelance Online</p>
+</header>
 
-  <div class="card">
-    <h2>Formulir Pesanan</h2>
+<main>
 
-    <form id="orderForm">
-      <input id="nama" placeholder="Nama kamu" maxlength="80" required>
+<div class="card">
+<h2>📱 Layanan WhatsApp</h2>
+<div class="item">
+<b>WhatsApp Business</b>
+<span>Bantuan pengaturan profil bisnis, katalog, dan pesan otomatis.</span>
+</div>
+<div class="item">
+<b>WhatsApp Marketing</b>
+<span>Pembuatan katalog dan materi promosi untuk pelanggan yang bersedia menerima pesan.</span>
+</div>
+</div>
 
-      <select id="produk" required>
-        <option value="">Pilih layanan</option>
-        <option>Desain banner atau logo</option>
-        <option>Penulisan caption</option>
-        <option>Input data online</option>
-        <option>Layanan lainnya</option>
-      </select>
+<div class="card">
+<h2>📧 Layanan Gmail</h2>
+<div class="item">
+<b>Pengaturan Gmail</b>
+<span>Bantuan membuat dan mengatur akun milik pelanggan sendiri.</span>
+</div>
+<div class="item">
+<b>Pengelolaan Email</b>
+<span>Penataan kotak masuk, filter, dan template email.</span>
+</div>
+</div>
 
-      <textarea id="detail" placeholder="Jelaskan pesanan kamu" maxlength="1000" required></textarea>
+<div class="card">
+<h2>📈 Media Sosial</h2>
+<div class="item">
+<b>Instagram & TikTok</b>
+<span>Desain konten, caption, dan strategi pertumbuhan organik.</span>
+</div>
+<div class="item">
+<b>YouTube</b>
+<span>Thumbnail, deskripsi, dan optimasi konten.</span>
+</div>
+</div>
 
-      <input id="kontak" placeholder="Username Telegram (opsional)" maxlength="100">
+<div class="card">
+<h2>💎 Aplikasi Premium</h2>
+<div class="item">
+<b>Bantuan Berlangganan Resmi</b>
+<span>Panduan pembelian dan pengaturan langganan melalui penyedia resmi.</span>
+</div>
+</div>
 
-      <button id="kirim" type="submit">Kirim Pesanan</button>
-      <div id="status" role="status"></div>
-    </form>
-  </div>
+<div class="card">
+<h2>💻 Freelance Online</h2>
+<div class="item">
+<b>Desain Logo & Banner</b>
+<span>Desain sederhana untuk usaha dan media sosial.</span>
+</div>
+<div class="item">
+<b>Pengetikan & Input Data</b>
+<span>Pengetikan dokumen dan pengolahan data.</span>
+</div>
+<div class="item">
+<b>Penulisan Caption</b>
+<span>Caption promosi, deskripsi produk, dan konten.</span>
+</div>
+</div>
 
-  <script>
-    const tg = window.Telegram?.WebApp;
-    if (tg) {
-      tg.ready();
-      tg.expand();
-    }
+<div class="card">
+<h2>🛒 Formulir Pesanan</h2>
 
-    document.getElementById("orderForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
+<form id="orderForm">
+<input id="nama" placeholder="Nama pelanggan" maxlength="80" required>
 
-      const tombol = document.getElementById("kirim");
-      const status = document.getElementById("status");
+<select id="produk" required>
+<option value="">-- Pilih Layanan --</option>
+<option>WhatsApp Business</option>
+<option>WhatsApp Marketing</option>
+<option>Pengaturan Gmail</option>
+<option>Pengelolaan Email</option>
+<option>Instagram & TikTok</option>
+<option>YouTube</option>
+<option>Bantuan Langganan Resmi</option>
+<option>Desain Logo & Banner</option>
+<option>Pengetikan & Input Data</option>
+<option>Penulisan Caption</option>
+<option>Layanan Lainnya</option>
+</select>
 
-      const nama = document.getElementById("nama").value.trim();
-      const produk = document.getElementById("produk").value;
-      const detail = document.getElementById("detail").value.trim();
-      const kontak = document.getElementById("kontak").value.trim();
+<textarea id="detail" maxlength="1000" placeholder="Detail pesanan dan jumlah" required></textarea>
 
-      tombol.disabled = true;
-      tombol.textContent = "Mengirim...";
-      status.textContent = "";
+<input id="kontak" maxlength="100" placeholder="Nomor WhatsApp atau @Telegram (opsional)">
 
-      try {
-        const response = await fetch(
-          "https://vhvr-notifikasi.dhiermanantasari.workers.dev/order",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              product: produk,
-              detail:
-                "Nama: " + nama +
-                "\nPesanan: " + detail +
-                "\nKontak: " + (kontak || "Tidak dicantumkan")
-            })
-          }
-        );
+<button id="kirim" type="submit">📩 Kirim Pesanan ke Admin</button>
+<div id="status" role="status"></div>
+</form>
 
-        if (!response.ok) {
-          throw new Error("Gagal mengirim pesanan");
-        }
+<p style="color:#94a3b8;font-size:12px">
+Harga dan pembayaran dikonfirmasi oleh admin. Jangan masukkan kata sandi atau kode OTP.
+</p>
+</div>
 
-        const hasil = await response.json();
+</main>
 
-        if (!hasil.ok) {
-          throw new Error("Notifikasi belum dikonfirmasi");
-        }
+<footer>© 2026 VHVR STORE</footer>
 
-        status.textContent = "Pesanan berhasil dikirim ke admin!";
-        this.reset();
+<script>
+const tg = window.Telegram?.WebApp;
+if(tg){tg.ready();tg.expand();}
 
-      } catch (error) {
-        status.textContent =
-          "Pesanan gagal dikirim otomatis. Periksa konfigurasi Cloudflare Worker.";
-      } finally {
-        tombol.disabled = false;
-        tombol.textContent = "Kirim Pesanan";
-      }
-    });
-  </script>
+document.getElementById("orderForm").addEventListener("submit",async function(e){
+e.preventDefault();
+
+const tombol=document.getElementById("kirim");
+const status=document.getElementById("status");
+const nama=document.getElementById("nama").value.trim();
+const produk=document.getElementById("produk").value;
+const detail=document.getElementById("detail").value.trim();
+const kontak=document.getElementById("kontak").value.trim();
+
+tombol.disabled=true;
+tombol.textContent="Mengirim...";
+status.textContent="";
+
+try{
+const response=await fetch(
+"https://vhvr-notifikasi.dhiermanantasari.workers.dev/order",
+{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+product:produk,
+detail:
+"Nama: "+nama+
+"\nDetail: "+detail+
+"\nKontak: "+(kontak||"Tidak dicantumkan")
+})
+}
+);
+
+if(!response.ok)throw new Error("Gagal");
+
+const hasil=await response.json();
+if(!hasil.ok)throw new Error("Gagal");
+
+status.textContent="✅ Pesanan berhasil dikirim ke Telegram admin!";
+this.reset();
+
+}catch(error){
+status.textContent="❌ Pesanan gagal dikirim. Silakan coba lagi.";
+}finally{
+tombol.disabled=false;
+tombol.textContent="📩 Kirim Pesanan ke Admin";
+}
+});
+</script>
 
 </body>
 </html>
+
