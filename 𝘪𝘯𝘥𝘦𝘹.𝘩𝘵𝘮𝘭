@@ -2,111 +2,389 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111827">
-  <title>VHVR Gift Hub</title>
-
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 30px 18px;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      color: white;
-      background: linear-gradient(145deg, #111827, #312e81);
-    }
-
-    main {
-      max-width: 440px;
-      margin: 35px auto;
-    }
-
-    .gift { font-size: 72px; }
-
-    h1 { font-size: 30px; }
-
-    p {
-      color: #dbeafe;
-      line-height: 1.7;
-    }
-
-    .card {
-      margin-top: 28px;
-      padding: 24px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.15);
-    }
-
-    button {
-      width: 100%;
-      margin-top: 16px;
-      padding: 15px;
-      border: 0;
-      border-radius: 12px;
-      background: #a5b4fc;
-      color: #111827;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #status {
-      overflow-wrap: anywhere;
-      font-size: 14px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08172c">
+<title>VHVR STORE | Toko Digital</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root {
+  color-scheme: dark;
+  --bg:#071326;
+  --panel:#11243e;
+  --blue:#2788f2;
+  --text:#f3f7ff;
+  --muted:#b1c1d7;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:linear-gradient(160deg,#153e69,#071326 45%);
+  color:var(--text);
+  font:15px/1.5 system-ui,Arial,sans-serif;
+}
+.wrap { max-width:650px;margin:auto;padding:20px 16px 70px; }
+header { display:flex;align-items:center;gap:12px;margin-bottom:20px; }
+.logo {
+  width:56px;height:56px;display:grid;place-items:center;
+  border-radius:17px;background:linear-gradient(135deg,#32b3ff,#2455d6);
+  font-weight:900;
+}
+h1 { font-size:24px;margin:0; }
+header p,.muted { color:var(--muted);margin:0; }
+.hero {
+  background:linear-gradient(120deg,#15508b,#112a51);
+  border:1px solid #4276b1;border-radius:20px;
+  padding:22px;margin-bottom:18px;
+}
+.hero h2 { margin:0 0 8px; }
+.hero p { margin:0;color:#d7e9ff; }
+.notice {
+  background:#122a42;border-left:3px solid #59aaff;
+  padding:12px;border-radius:9px;font-size:13px;
+  margin-bottom:20px;
+}
+.filters { display:flex;overflow-x:auto;gap:8px;padding-bottom:12px; }
+.filters button {
+  white-space:nowrap;border:1px solid #365573;
+  background:#142943;color:#cde3ff;
+  border-radius:25px;padding:10px 14px;
+}
+.filters button.active { background:var(--blue);color:white; }
+.cards { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+.card {
+  background:var(--panel);border:1px solid #274562;
+  border-radius:16px;padding:15px;display:flex;
+  flex-direction:column;gap:8px;
+}
+.emoji { font-size:30px; }
+.card h3 { margin:0;font-size:15px; }
+.card p { color:var(--muted);font-size:12px;flex:1;margin:0; }
+.price { color:#75c4ff;font-weight:800;font-size:18px; }
+button { cursor:pointer; }
+.card button,.primary {
+  background:var(--blue);color:white;border:0;
+  border-radius:11px;padding:12px;font-weight:700;
+}
+.checkout,.admin {
+  margin-top:24px;background:#172e4e;
+  padding:20px;border-radius:18px;border:1px solid #345577;
+}
+label { display:block;margin:12px 0 6px;font-size:13px; }
+input,textarea,select {
+  width:100%;border:1px solid #41617d;
+  background:#091b31;color:white;border-radius:10px;
+  padding:12px;font:inherit;
+}
+textarea { min-height:80px; }
+.primary { width:100%;margin-top:14px; }
+.hint { font-size:12px;color:var(--muted); }
+.admin-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+.admin-actions { display:flex;flex-wrap:wrap;gap:8px;margin-top:15px; }
+.admin-actions button {
+  background:#245b91;border:0;border-radius:10px;
+  padding:10px;color:white;
+}
+footer { text-align:center;color:#829cba;font-size:12px;margin-top:30px; }
+a { color:#8acaff; }
+@media(max-width:350px) {
+  .cards { grid-template-columns:1fr; }
+}
+</style>
 </head>
-
 <body>
-  <main>
-    <div class="gift">🎁</div>
-    <h1>VHVR Gift Hub</h1>
-    <p>Selamat datang di VHVR BOT!</p>
+<div class="wrap">
 
-    <section class="card">
-      <h2>Gift Hub</h2>
-      <p>Aplikasi web VHVR Anda telah dimuat.</p>
+<header>
+  <div class="logo">VHVR</div>
+  <div>
+    <h1>VHVR STORE</h1>
+    <p>Toko layanan & produk digital</p>
+  </div>
+</header>
 
-      <button id="start">🚀 Mulai</button>
-      <button id="close">Kembali ke Telegram</button>
+<section class="hero">
+  <h2>Selamat datang! 👋</h2>
+  <p>Pilih produk, lihat harga, lalu hubungi admin melalui Telegram.</p>
+</section>
 
-      <p id="status">Siap digunakan.</p>
-    </section>
-  </main>
+<div class="notice">
+  ℹ️ Harga masih contoh. Konfirmasi harga dan ketersediaan
+  sebelum membayar. Jangan berikan password atau OTP.
+  Nomor HP hanya tersedia melalui pengalihan yang sah.
+</div>
 
-  <script>
-    const tg = window.Telegram?.WebApp;
-    const status = document.getElementById("status");
+<h2>🛍️ Katalog Layanan</h2>
+<div class="filters" id="filters"></div>
+<div class="cards" id="cards"></div>
 
-    if (tg) {
-      tg.ready();
-      tg.expand();
+<section class="checkout" id="checkout">
+  <h2>🧾 Formulir Pesanan</h2>
+  <label>Produk dipilih</label>
+  <input id="product" readonly placeholder="Pilih produk dari katalog">
+
+  <label>Detail pesanan / username / catatan</label>
+  <textarea id="detail" placeholder="Tulis detail. Jangan masukkan OTP atau password."></textarea>
+
+  <label>Nama panggilan (opsional)</label>
+  <input id="customer" placeholder="Nama kamu">
+
+  <button class="primary" onclick="order()">
+    📋 Salin Pesanan & Buka Telegram
+  </button>
+  <p class="hint" id="feedback"></p>
+  <p class="hint">Tempel pesan di Telegram. Bot belum mencatat pesanan otomatis.</p>
+</section>
+
+<section class="admin" id="admin" hidden>
+  <h2>⚙️ Editor Produk</h2>
+  <p class="hint">
+    Editor lokal. Perubahan harus diunduh sebagai index.html
+    dan diunggah kembali ke GitHub agar terlihat oleh pelanggan.
+    Halaman ini bukan panel admin dengan login aman.
+  </p>
+
+  <label>Pilih produk</label>
+  <select id="editSelect"></select>
+
+  <label>Nama produk</label>
+  <input id="editName" maxlength="100">
+
+  <div class="admin-grid">
+    <div>
+      <label>Harga (Rp)</label>
+      <input id="editPrice" type="number" min="0" step="100">
+    </div>
+    <div>
+      <label>Kategori</label>
+      <input id="editCat" maxlength="50">
+    </div>
+  </div>
+
+  <label>Keterangan</label>
+  <textarea id="editDesc" maxlength="350"></textarea>
+
+  <div class="admin-actions">
+    <button id="saveProduct">Simpan Perubahan</button>
+    <button id="addProduct">+ Tambah Produk</button>
+    <button id="deleteProduct">Hapus Produk</button>
+  </div>
+
+  <button class="primary" id="exportSite">
+    ⬇️ Download index.html Terbaru
+  </button>
+  <p class="hint" id="adminFeedback"></p>
+</section>
+
+<footer>
+  VHVR STORE · <a href="https://t.me/VHVR_Bot">@VHVR_Bot</a>
+  <p>Jangan membagikan password, OTP, atau data sensitif.</p>
+</footer>
+</div>
+
+<script>
+let products=[
+{id:'followers',cat:'Sosial Media',icon:'📈',name:'100 Followers',desc:'Paket contoh peningkatan jangkauan akun.',price:5000},
+{id:'likes',cat:'Sosial Media',icon:'❤️',name:'1.000 Likes',desc:'Paket contoh interaksi konten.',price:8000},
+{id:'views',cat:'Sosial Media',icon:'▶️',name:'1.000 Views',desc:'Paket contoh tayangan konten.',price:3000},
+{id:'premium',cat:'Aplikasi Premium',icon:'💎',name:'Premium 1 Bulan',desc:'Jenis aplikasi dan ketersediaan dikonfirmasi admin.',price:25000},
+{id:'gmail',cat:'Akun Gmail',icon:'✉️',name:'Akun Gmail',desc:'Hanya akun yang sah dan dapat dialihkan sesuai ketentuan.',price:10000},
+{id:'email',cat:'Sewa Email',icon:'📩',name:'Sewa Email 7 Hari',desc:'Akses email sementara sesuai syarat penyedia.',price:5000},
+{id:'wa-id',cat:'Nomor WhatsApp',icon:'🇮🇩',name:'Nomor Indonesia (+62)',desc:'SIM/eSIM legal Indonesia. Bukan akun WhatsApp siap pakai.',price:15000},
+{id:'wa-intl',cat:'Nomor WhatsApp',icon:'🌍',name:'Nomor Luar Negeri',desc:'SIM/eSIM legal. Cantumkan negara yang diinginkan.',price:25000}
+];
+const PRODUCTS_END_MARKER='VHVR_PRODUCTS_END';
+
+const rupiah=n=>'Rp'+n.toLocaleString('id-ID');
+let filter='Semua',chosen=null;
+const $=id=>document.getElementById(id);
+
+function esc(t){
+  return String(t).replace(/[&<>"']/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;',
+    '"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function render(){
+  const cats=['Semua',...new Set(products.map(p=>p.cat))];
+  $('filters').innerHTML=cats.map(c=>
+    `<button class="${c===filter?'active':''}" data-filter="${esc(c)}">${esc(c)}</button>`
+  ).join('');
+  document.querySelectorAll('[data-filter]').forEach(b=>{
+    b.onclick=()=>{filter=b.dataset.filter;render()};
+  });
+
+  $('cards').innerHTML=products
+    .filter(p=>filter==='Semua'||p.cat===filter)
+    .map(p=>`
+      <article class="card">
+        <div class="emoji">${esc(p.icon)}</div>
+        <h3>${esc(p.name)}</h3>
+        <p>${esc(p.desc)}</p>
+        <div class="price">${rupiah(p.price)}</div>
+        <button data-id="${esc(p.id)}">Pilih Produk</button>
+      </article>
+    `).join('');
+
+  document.querySelectorAll('[data-id]').forEach(b=>{
+    b.onclick=()=>selectProduct(b.dataset.id);
+  });
+}
+
+function selectProduct(id){
+  chosen=products.find(p=>p.id===id);
+  if(!chosen)return;
+  $('product').value=chosen.name+' — '+rupiah(chosen.price);
+  $('checkout').scrollIntoView({behavior:'smooth'});
+}
+
+async function order(){
+  if(!chosen){alert('Pilih produk terlebih dahulu.');return;}
+  const customer=$('customer').value.trim();
+  const detail=$('detail').value.trim();
+  const msg=`Halo admin VHVR STORE, saya ingin bertanya/pesan:
+Produk: ${chosen.name}
+Harga contoh: ${rupiah(chosen.price)}
+Nama: ${customer||'-'}
+Detail: ${detail||'-'}
+Mohon konfirmasi harga, ketersediaan, dan pembayaran.`;
+
+  try{
+    await navigator.clipboard.writeText(msg);
+    $('feedback').textContent='Pesanan disalin. Tempel di chat Telegram.';
+  }catch(e){
+    $('feedback').textContent='Salin manual pesan ini: '+msg;
+    return;
+  }
+  setTimeout(()=>{
+    const url='https://t.me/VHVR_Bot';
+    if(window.Telegram?.WebApp?.openTelegramLink){
+      window.Telegram.WebApp.openTelegramLink(url);
+    }else{
+      window.location.href=url;
     }
+  },500);
+}
 
-    document.getElementById("start").onclick = function () {
-      if (tg) {
-        tg.showAlert("Selamat datang di VHVR Gift Hub!");
-      } else {
-        status.textContent =
-          "Halaman aktif. Buka melalui Telegram untuk fitur Mini App.";
-      }
-    };
+const adminMode=new URLSearchParams(location.search).get('admin')==='1';
+let editIndex=0;
 
-    document.getElementById("close").onclick = function () {
-      if (tg) {
-        tg.close();
-      } else {
-        status.textContent =
-          "Silakan kembali ke Telegram secara manual.";
-      }
-    };
-  </script>
+function adminMsg(t){$('adminFeedback').textContent=t;}
+
+function loadEdit(){
+  const p=products[editIndex];
+  if(!p)return;
+  $('editName').value=p.name;
+  $('editPrice').value=p.price;
+  $('editCat').value=p.cat;
+  $('editDesc').value=p.desc;
+}
+
+function adminSelect(){
+  $('editSelect').innerHTML=products.map((p,i)=>
+    `<option value="${i}">${esc(p.name)}</option>`
+  ).join('');
+  editIndex=Math.min(editIndex,products.length-1);
+  $('editSelect').value=String(editIndex);
+  loadEdit();
+}
+
+function storeDraft(){
+  try{
+    localStorage.setItem('vhvr_products_draft',JSON.stringify(products));
+  }catch(e){}
+  render();
+  adminSelect();
+}
+
+if(adminMode){
+  $('admin').hidden=false;
+  try{
+    const draft=JSON.parse(localStorage.getItem('vhvr_products_draft'));
+    if(Array.isArray(draft)&&draft.length&&draft.every(p=>
+      p&&typeof p.name==='string'&&Number.isFinite(p.price)
+    ))products=draft;
+  }catch(e){}
+
+  $('editSelect').onchange=e=>{
+    editIndex=Number(e.target.value);
+    loadEdit();
+  };
+
+  $('saveProduct').onclick=()=>{
+    const name=$('editName').value.trim();
+    const cat=$('editCat').value.trim();
+    const desc=$('editDesc').value.trim();
+    const price=Number($('editPrice').value);
+
+    if(!name||!cat||!Number.isSafeInteger(price)||price<0){
+      adminMsg('Isi nama, kategori dan harga yang valid.');
+      return;
+    }
+    Object.assign(products[editIndex],{name,cat,desc,price});
+    storeDraft();
+    adminMsg('Tersimpan di browser. Download HTML untuk publikasi.');
+  };
+
+  $('addProduct').onclick=()=>{
+    products.push({
+      id:'item-'+Date.now(),cat:'Produk Baru',
+      icon:'📦',name:'Produk Baru',
+      desc:'Konfirmasi ke admin',price:10000
+    });
+    editIndex=products.length-1;
+    storeDraft();
+    adminMsg('Produk ditambahkan. Silakan edit.');
+  };
+
+  $('deleteProduct').onclick=()=>{
+    if(products.length<=1){
+      adminMsg('Minimal satu produk diperlukan.');
+      return;
+    }
+    if(!confirm('Hapus produk ini?'))return;
+    products.splice(editIndex,1);
+    editIndex=0;
+    storeDraft();
+    adminMsg('Produk dihapus dari draft lokal.');
+  };
+
+  $('exportSite').onclick=()=>{
+    const clean=products.map(p=>({
+      id:String(p.id),cat:String(p.cat),icon:String(p.icon),
+      name:String(p.name),desc:String(p.desc),price:Number(p.price)
+    }));
+    const source=document.documentElement.outerHTML;
+    const replacement='let products='+JSON.stringify(clean).replace(/</g,'\\u003c')+';';
+    const updated=source.replace(
+      /let products=\[[\s\S]*?\];\s*const PRODUCTS_END_MARKER=/,
+      replacement+'\nconst PRODUCTS_END_MARKER='
+    );
+    if(updated===source){
+      adminMsg('Gagal membuat file.');
+      return;
+    }
+    const blob=new Blob(['<!DOCTYPE html>\n'+updated],{
+      type:'text/html;charset=utf-8'
+    });
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download='index.html';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),3000);
+    adminMsg('File diunduh. Upload kembali ke GitHub.');
+  };
+
+  adminSelect();
+}
+
+render();
+try{
+  window.Telegram?.WebApp?.ready();
+  window.Telegram?.WebApp?.expand();
+}catch(e){}
+</script>
 </body>
 </html>
