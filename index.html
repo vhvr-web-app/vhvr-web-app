@@ -320,6 +320,7 @@ document.getElementById("sudahBayar").addEventListener("click", async function()
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
+          orderId: window.vhvrOrderId || "",
           product: "KONFIRMASI PEMBAYARAN - " +
             produk.options[produk.selectedIndex].text,
           detail:
