@@ -260,7 +260,7 @@ document.getElementById("orderForm")
     if(!hasil.ok)throw new Error("Gagal");
 
     window.vhvrOrderId = hasil.orderId;
-
+localStorage.setItem("vhvrOrderId", hasil.orderId);
 status.textContent =
   "✅ Pesanan berhasil dikirim!\n" +
   "🧾 Nomor Pesanan: " + hasil.orderId +
@@ -320,7 +320,7 @@ document.getElementById("sudahBayar").addEventListener("click", async function()
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          orderId: window.vhvrOrderId || "Belum dicantumkan",
+          orderId: localStorage.getItem("vhvrOrderId") || window.vhvrOrderId || "Belum dicantumkan",
           product: "KONFIRMASI PEMBAYARAN - " +
             produk.options[produk.selectedIndex].text,
           detail:
