@@ -261,7 +261,8 @@ document.getElementById("orderForm")
 
     window.vhvrOrderId = hasil.orderId;
 localStorage.setItem("vhvrOrderId", hasil.orderId);
-status.textContent =
+localStorage.setItem("vhvrOrderProduk", item.nama);
+    status.textContent =
   "✅ Pesanan berhasil dikirim!\n" +
   "🧾 Nomor Pesanan: " + hasil.orderId +
   "\nTunggu konfirmasi admin sebelum membayar.";
@@ -320,7 +321,7 @@ document.getElementById("sudahBayar").addEventListener("click", async function()
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          orderId: localStorage.getItem("vhvrOrderId") || window.vhvrOrderId || "Belum dicantumkan",
+          orderId: localStorage.getItem("vhvrOrderId") || "",
           product: "KONFIRMASI PEMBAYARAN - " +
             produk.options[produk.selectedIndex].text,
           detail:
