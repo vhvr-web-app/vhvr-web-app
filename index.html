@@ -259,10 +259,12 @@ document.getElementById("orderForm")
     const hasil=await response.json();
     if(!hasil.ok)throw new Error("Gagal");
 
-    status.textContent=
-      "✅ Pesanan berhasil dikirim ke Telegram admin! "+
-      "Tunggu konfirmasi sebelum membayar.";
+    window.vhvrOrderId = hasil.orderId;
 
+status.textContent =
+  "✅ Pesanan berhasil dikirim!\n" +
+  "🧾 Nomor Pesanan: " + hasil.orderId +
+  "\nTunggu konfirmasi admin sebelum membayar.";
     this.reset();
     hargaInput.value="";
 
