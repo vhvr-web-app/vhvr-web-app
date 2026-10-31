@@ -291,5 +291,57 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 </script>
+<script>
+document.getElementById("sudahBayar").addEventListener("click", async function() {
+  const nama = document.getElementById("nama").value.trim();
+  const produk = document.getElementById("produk");
+  const harga = document.getElementById("harga").value;
+  const kontak = document.getElementById("kontak").value.trim();
+  const status = document.getElementById("statusBayar");
+
+  if (!nama || !produk.value || !kontak) {
+    status.textContent = "⚠️ Isi nama, produk, dan kontak terlebih dahulu.";
+    return;
+  }
+
+  this.disabled = true;
+  status.textContent = "Mengirim konfirmasi...";
+
+  try {
+    const response = await fetch(
+      "https://vhvr-notifikasi.dhiermanantasari.workers.dev/order",
+      {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          product: "KONFIRMASI PEMBAYARAN - " +
+            produk.options[produk.selectedIndex].text,
+          detail:
+            "Pelanggan mengaku sudah membayar.\n" +
+            "Nama: " + nama +
+            "\nHarga: " + harga +
+            "\nKontak: " + kontak +
+            "\nMetode: QRIS\n" +
+            "Status: BELUM DIVERIFIKASI"
+        })
+      }
+    );
+
+    if (!response.ok) throw new Error("Gagal");
+
+    const result = await response.json();
+    if (!result.ok) throw new Error("Gagal");
+
+    status.textContent =
+      "✅ Konfirmasi terkirim. Admin akan memeriksa pembayaran.";
+
+  } catch (error) {
+    status.textContent =
+      "❌ Konfirmasi gagal dikirim. Silakan coba lagi.";
+  } finally {
+    this.disabled = false;
+  }
+});
+</script>
 </body>
 </html>
