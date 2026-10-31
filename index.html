@@ -304,7 +304,7 @@ document.getElementById("sudahBayar").addEventListener("click", async function()
   const harga = document.getElementById("harga").value;
   const kontak = document.getElementById("kontak").value.trim();
   const status = document.getElementById("statusBayar");
-
+orderId: window.vhvrOrderId || "",
   if (!nama || !produk.value || !kontak) {
     status.textContent = "⚠️ Isi nama, produk, dan kontak terlebih dahulu.";
     return;
