@@ -350,5 +350,14 @@ document.getElementById("sudahBayar").addEventListener("click", async function()
   }
 });
 </script>
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const tombol = document.getElementById("sudahBayar");
+
+  if (tombol) {
+    tombol.disabled = false;
+  }
+});
+  </script>
 </body>
 </html>
