@@ -137,7 +137,7 @@ required>
 <option value="OVO">OVO</option>
 <option value="Transfer Bank">Transfer Bank</option>
 </select>
-<div id="qrisBox" style="display:block;text-align:center">
+<div id="qrisBox" style="display:none;text-align:center">
   <h3>💳 Bayar dengan QRIS DANA Bisnis</h3>
   <img src="qris.png" alt="QRIS VHVR STORE"
        style="width:100%;max-width:280px;border-radius:12px">
@@ -275,6 +275,25 @@ document.getElementById("orderForm")
   }
 });
 </script>
+<script>
+function tampilkanQRIS() {
+  const pembayaran = document.getElementById("pembayaran");
+  const qris = document.getElementById("qrisBox");
 
+  if (pembayaran && qris) {
+    qris.style.display =
+      pembayaran.value === "QRIS" ? "block" : "none";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const pembayaran = document.getElementById("pembayaran");
+
+  if (pembayaran) {
+    pembayaran.addEventListener("change", tampilkanQRIS);
+    tampilkanQRIS();
+  }
+});
+</script>
 </body>
 </html>
