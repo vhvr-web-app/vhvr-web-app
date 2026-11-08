@@ -219,7 +219,8 @@
         showStatus("Sedang mengirim pesanan ke admin. Mohon tunggu.", "info");
 
         const payload = {
-          product: product.name,
+          initData: telegram && telegram.initData ? telegram.initData : "",
+          productId: productSelect.value,
           detail:
             "Nama: " + customerName +
             "\nHarga: " + rupiah(product.price) +
