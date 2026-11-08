@@ -1,364 +1,271 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VHVR STORE</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0b1020;
-  color:white;
-}
-header{
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
-  padding:30px 20px;
-  text-align:center;
-}
-h1{margin:0}
-header p{color:#e0e7ff}
-main{max-width:600px;margin:auto;padding:16px}
-.card{
-  background:#18223b;
-  padding:20px;
-  border-radius:15px;
-  margin-bottom:15px;
-}
-h2{color:#7dd3fc}
-.produk{
-  background:#10182c;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:12px;
-}
-.harga{
-  color:#4ade80;
-  font-size:21px;
-  font-weight:bold;
-  margin:10px 0;
-}
-button{
-  background:#22c55e;
-  color:#052e16;
-  border:0;
-  border-radius:10px;
-  padding:13px;
-  width:100%;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-button:disabled{opacity:.6}
-input,select,textarea{
-  box-sizing:border-box;
-  width:100%;
-  padding:13px;
-  margin:8px 0;
-  background:#0b1020;
-  color:white;
-  border:1px solid #475569;
-  border-radius:8px;
-  font-size:15px;
-}
-textarea{min-height:90px}
-#status{margin-top:12px;line-height:1.5}
-small{color:#cbd5e1;line-height:1.5}
-footer{text-align:center;padding:20px;color:#94a3b8}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10172a">
+  <meta name="description" content="VHVR STORE — katalog layanan dan pemesanan yang mudah melalui Telegram.">
+  <title>VHVR STORE — Layanan Digital</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1020;--surface:#121c32;--surface2:#182641;--line:#2b3a58;--text:#f8fafc;--muted:#b6c3d8;--blue:#60a5fa;--green:#4ade80;--radius:20px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(ellipse at top,#1b2a4a 0,#0b1020 55%);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit}
+    .wrap{width:min(100% - 28px,760px);margin:auto}
+    .top{padding:30px 0 24px;text-align:center}
+    .brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.04em;font-size:clamp(25px,6vw,36px)}
+    .brand-mark{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#2563eb,#7c3aed);box-shadow:0 10px 30px #2563eb40}
+    .top p{max-width:520px;margin:10px auto 0;color:var(--muted)}
+    .pill{display:inline-flex;align-items:center;gap:7px;margin-top:16px;padding:6px 11px;border:1px solid #36527a;border-radius:99px;color:#cfe4ff;font-size:12px}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+    .panel{margin:14px 0;padding:clamp(18px,4vw,25px);border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(160deg,#17243d,#111a2e);box-shadow:0 14px 40px #0003}
+    h2{margin:0 0 6px;font-size:21px}
+    .sub{margin:0 0 18px;color:var(--muted);font-size:14px}
+    .products{display:grid;grid-template-columns:1fr;gap:12px}
+    .product{padding:17px;border:1px solid #30415f;border-radius:16px;background:#0e182b}
+    .product-head{display:flex;align-items:flex-start;gap:12px}
+    .emoji{display:grid;place-items:center;flex:0 0 43px;height:43px;border-radius:13px;background:#1c3152;font-size:22px}
+    .product h3{margin:0;font-size:16px}
+    .product p{margin:5px 0 0;color:var(--muted);font-size:13px}
+    .product-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:15px}
+    .price{font-size:19px;font-weight:800;color:var(--green);white-space:nowrap}
+    button{font:inherit;cursor:pointer}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:44px;padding:10px 16px;border:0;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#6366f1);color:white;font-weight:750;text-decoration:none}
+    .btn:hover{filter:brightness(1.08)}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+    .btn.secondary{background:#263753;color:#e5efff;border:1px solid #405574}
+    .btn.full{width:100%;margin-top:10px}
+    label{display:block;margin:14px 0 6px;font-size:14px;font-weight:650}
+    input,select,textarea{display:block;width:100%;min-height:48px;padding:12px 13px;border:1px solid #3a4b69;border-radius:11px;background:#0a1324;color:var(--text);font:inherit}
+    input::placeholder,textarea::placeholder{color:#8797b1}
+    input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+    input[readonly]{color:#c7d5eb;background:#111d32}
+    textarea{min-height:105px;resize:vertical}
+    .hint{display:block;margin-top:6px;color:var(--muted);font-size:12px}
+    .notice{margin:15px 0 0;padding:13px;border:1px solid #66532c;border-radius:12px;background:#302717;color:#ffe6a6;font-size:13px}
+    .qris{display:none;margin-top:14px;padding:15px;border:1px solid #3a4b69;border-radius:14px;background:#0b1527;text-align:center}
+    .qris img{display:block;width:min(100%,270px);height:auto;margin:12px auto;border-radius:12px;background:white}
+    .status{margin-top:14px;padding:12px;border-radius:11px;white-space:pre-line;font-size:14px}
+    .status:empty{display:none}
+    .status.success{border:1px solid #23754a;background:#102b20;color:#bbf7d0}
+    .status.error{border:1px solid #854040;background:#321919;color:#fecaca}
+    .status.info{border:1px solid #36527a;background:#14243d;color:#dbeafe}
+    .steps{display:grid;gap:12px;margin-top:15px}
+    .step{display:flex;gap:12px;align-items:flex-start;color:var(--muted);font-size:14px}
+    .num{display:grid;place-items:center;flex:0 0 27px;height:27px;border-radius:50%;background:#263e63;color:#dbeafe;font-weight:800}
+    footer{padding:25px 0 35px;text-align:center;color:#8494ad;font-size:12px}
+    @media(min-width:600px){.products{grid-template-columns:1fr 1fr}.product:last-child{grid-column:1/-1}.product:last-child .product-bottom{justify-content:flex-start}.product:last-child .btn{min-width:170px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  </style>
 </head>
 <body>
+  <header class="top wrap">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">🛍️</span><span>VHVR STORE</span></div>
+    <p>Layanan digital dengan pemesanan yang jelas, mudah, dan dibantu admin.</p>
+    <div class="pill"><span class="dot"></span> Pemesanan online</div>
+  </header>
 
-<header>
-<h1>🛍️ VHVR STORE</h1>
-<p>Layanan Gmail & Nomor Seluler</p>
-</header>
+  <main class="wrap">
+    <section class="panel" aria-labelledby="catalogTitle">
+      <h2 id="catalogTitle">Katalog layanan</h2>
+      <p class="sub">Pilih layanan untuk mengisi formulir pemesanan.</p>
+      <div class="products">
+        <article class="product">
+          <div class="product-head"><span class="emoji" aria-hidden="true">📧</span><div><h3>Bantuan Pembuatan Gmail</h3><p>Pendampingan membuat akun Gmail milik Anda sendiri.</p></div></div>
+          <div class="product-bottom"><span class="price">Rp5.000</span><button class="btn" type="button" data-product="gmail">Pilih layanan</button></div>
+        </article>
+        <article class="product">
+          <div class="product-head"><span class="emoji" aria-hidden="true">✉️</span><div><h3>Bantuan Pengelolaan Gmail</h3><p>Bantuan pengaturan email tanpa meminta kata sandi atau OTP.</p></div></div>
+          <div class="product-bottom"><span class="price">Rp3.000</span><button class="btn" type="button" data-product="kelola">Pilih layanan</button></div>
+        </article>
+        <article class="product">
+          <div class="product-head"><span class="emoji" aria-hidden="true">📱</span><div><h3>Nomor Seluler Resmi</h3><p>Informasi dan bantuan nomor seluler dengan registrasi sesuai ketentuan.</p></div></div>
+          <div class="product-bottom"><span class="price">Rp10.000</span><button class="btn" type="button" data-product="nomor">Pilih layanan</button></div>
+        </article>
+      </div>
+    </section>
 
-<main>
+    <section class="panel" id="formPesanan" aria-labelledby="orderTitle">
+      <h2 id="orderTitle">Buat pesanan</h2>
+      <p class="sub">Isi data yang diperlukan. Admin akan menerima detail pesanan Anda.</p>
+      <form id="orderForm">
+        <label for="nama">Nama pelanggan</label>
+        <input id="nama" name="nama" autocomplete="name" maxlength="80" placeholder="Masukkan nama Anda" required>
 
-<div class="card">
-<h2>📦 Katalog Layanan</h2>
+        <label for="produk">Layanan</label>
+        <select id="produk" name="produk" required>
+          <option value="">Pilih layanan</option>
+          <option value="gmail">Bantuan Pembuatan Gmail</option>
+          <option value="kelola">Bantuan Pengelolaan Gmail</option>
+          <option value="nomor">Nomor Seluler Resmi</option>
+        </select>
 
-<div class="produk">
-<h3>📧 Bantuan Pembuatan Gmail</h3>
-<p>Pendampingan membuat akun Gmail milik pelanggan sendiri.</p>
-<div class="harga">Rp5.000</div>
-<button onclick="pilihProduk('gmail')">Pesan Sekarang</button>
-</div>
+        <label for="harga">Harga</label>
+        <input id="harga" name="harga" placeholder="Otomatis setelah layanan dipilih" readonly>
 
-<div class="produk">
-<h3>📩 Bantuan Pengelolaan Gmail</h3>
-<p>Bantuan mengatur email pelanggan tanpa menyewakan akses akun.</p>
-<div class="harga">Rp3.000</div>
-<button onclick="pilihProduk('kelola')">Pesan Sekarang</button>
-</div>
+        <label for="detail">Detail kebutuhan</label>
+        <textarea id="detail" name="detail" maxlength="1000" placeholder="Tuliskan kebutuhan Anda (jangan sertakan kata sandi atau OTP)" required></textarea>
 
-<div class="produk">
-<h3>📱 Nomor Seluler Resmi</h3>
-<p>SIM/eSIM resmi untuk penggunaan WhatsApp dengan registrasi sah.</p>
-<div class="harga">Rp10.000</div>
-<button onclick="pilihProduk('nomor')">Pesan Sekarang</button>
-</div>
+        <label for="kontak">Kontak yang bisa dihubungi</label>
+        <input id="kontak" name="kontak" maxlength="100" placeholder="Nomor WhatsApp atau @username Telegram" required>
 
-</div>
+        <label for="pembayaran">Metode pembayaran pilihan</label>
+        <select id="pembayaran" name="pembayaran" required>
+          <option value="">Pilih metode pembayaran</option>
+          <option value="QRIS">QRIS</option>
+          <option value="DANA">DANA</option>
+          <option value="GoPay">GoPay</option>
+          <option value="OVO">OVO</option>
+          <option value="Transfer Bank">Transfer Bank</option>
+        </select>
 
-<div class="card" id="formPesanan">
-<h2>🛒 Formulir Pesanan</h2>
+        <div class="qris" id="qrisBox">
+          <strong>Metode pilihan: QRIS</strong>
+          <img src="qris.png" alt="Kode QRIS VHVR STORE" loading="lazy">
+          <p class="hint">Jangan melakukan pembayaran sebelum admin mengonfirmasi pesanan dan jumlah tagihan. Bukti pembayaran akan diperiksa oleh admin.</p>
+        </div>
 
-<form id="orderForm">
+        <div class="notice">Keamanan: jangan pernah mengirim kata sandi, kode OTP, PIN, atau data rahasia. Pembayaran dilakukan setelah admin mengonfirmasi pesanan.</div>
+        <button class="btn full" id="kirim" type="submit">Kirim pesanan ke admin</button>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </form>
+    </section>
 
-<input id="nama" placeholder="Nama pelanggan" maxlength="80" required>
+    <section class="panel" aria-labelledby="flowTitle">
+      <h2 id="flowTitle">Cara pemesanan</h2>
+      <div class="steps">
+        <div class="step"><span class="num">1</span><span>Pilih layanan dan lengkapi formulir.</span></div>
+        <div class="step"><span class="num">2</span><span>Kirim pesanan dan simpan nomor pesanan yang muncul.</span></div>
+        <div class="step"><span class="num">3</span><span>Tunggu admin mengonfirmasi ketersediaan dan total pembayaran.</span></div>
+        <div class="step"><span class="num">4</span><span>Lakukan pembayaran sesuai instruksi admin, lalu tunggu verifikasi.</span></div>
+      </div>
+    </section>
+  </main>
 
-<select id="produk" required>
-<option value="">-- Pilih Layanan --</option>
-<option value="gmail">Bantuan Pembuatan Gmail</option>
-<option value="kelola">Bantuan Pengelolaan Gmail</option>
-<option value="nomor">Nomor Seluler Resmi</option>
-</select>
+  <footer class="wrap">© <span id="year"></span> VHVR STORE · Layanan pelanggan</footer>
 
-<input id="harga" placeholder="Harga" readonly>
-
-<textarea id="detail" maxlength="1000"
-placeholder="Jelaskan kebutuhan pesanan"
-required></textarea>
-
-<input id="kontak" maxlength="100"
-placeholder="WhatsApp atau @Telegram untuk dihubungi"
-required>
-
-<select id="pembayaran" required>
-<option value="">-- Metode Pembayaran --</option>
-<option value="QRIS">QRIS</option>
-<option value="DANA">DANA</option>
-<option value="GoPay">GoPay</option>
-<option value="OVO">OVO</option>
-<option value="Transfer Bank">Transfer Bank</option>
-</select>
-<div id="qrisBox" style="display:none;text-align:center">
-  <h3>💳 Bayar dengan QRIS DANA Bisnis</h3>
-  <img src="qris.png" alt="QRIS VHVR STORE"
-       style="width:100%;max-width:280px;border-radius:12px">
-  <p>Scan QRIS menggunakan aplikasi pembayaran.</p>
-  <p>Bayar sesuai harga pesanan.</p>
-<button type="button" id="sudahBayar">
-  ✅ Saya Sudah Bayar
-</button>
-<p id="statusBayar"></p>
-</div>
-
-<script>
-</script>
-<button id="kirim" type="submit">
-📩 Kirim Pesanan
-</button>
-
-<div id="status" role="status"></div>
-
-</form>
-
-<p><small>
-Harga belum termasuk biaya operator atau penyedia layanan.
-Pembayaran dilakukan setelah admin mengonfirmasi pesanan.
-Jangan berikan kata sandi, OTP, atau data rahasia.
-</small></p>
-</div>
-
-</main>
-
-<footer>© 2026 VHVR STORE</footer>
-
-<script>
-const tg=window.Telegram?.WebApp;
-if(tg){
-  tg.ready();
-  tg.expand();
-}
-
-const katalog={
-  gmail:{
-    nama:"Bantuan Pembuatan Gmail",
-    harga:5000
-  },
-  kelola:{
-    nama:"Bantuan Pengelolaan Gmail",
-    harga:3000
-  },
-  nomor:{
-    nama:"Nomor Seluler Resmi",
-    harga:10000
-  }
-};
-
-const produkInput=document.getElementById("produk");
-const hargaInput=document.getElementById("harga");
-
-function rupiah(angka){
-  return "Rp"+angka.toLocaleString("id-ID");
-}
-
-function updateHarga(){
-  const item=katalog[produkInput.value];
-  hargaInput.value=item?rupiah(item.harga):"";
-}
-
-function pilihProduk(kode){
-  produkInput.value=kode;
-  updateHarga();
-  document.getElementById("formPesanan")
-    .scrollIntoView({behavior:"smooth"});
-}
-
-produkInput.addEventListener("change",updateHarga);
-
-document.getElementById("orderForm")
-.addEventListener("submit",async function(e){
-  e.preventDefault();
-
-  const tombol=document.getElementById("kirim");
-  const status=document.getElementById("status");
-
-  const nama=document.getElementById("nama").value.trim();
-  const kode=produkInput.value;
-  const item=katalog[kode];
-  const detail=document.getElementById("detail").value.trim();
-  const kontak=document.getElementById("kontak").value.trim();
-  const pembayaran=document.getElementById("pembayaran").value;
-
-  if(!item || !nama || !detail || !kontak || !pembayaran){
-    status.textContent="Lengkapi formulir terlebih dahulu.";
-    return;
-  }
-
-  tombol.disabled=true;
-  tombol.textContent="Mengirim...";
-  status.textContent="";
-
-  try{
-    const response=await fetch(
-      "https://vhvr-notifikasi.dhiermanantasari.workers.dev/order",
-      {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          product:item.nama,
-          detail:
-            "Nama: "+nama+
-            "\nHarga: "+rupiah(item.harga)+
-            "\nDetail: "+detail+
-            "\nKontak: "+kontak+
-            "\nMetode pembayaran: "+pembayaran
-        })
-      }
-    );
-
-    if(!response.ok)throw new Error("Gagal");
-
-    const hasil=await response.json();
-    if(!hasil.ok)throw new Error("Gagal");
-
-    window.vhvrOrderId = hasil.orderId;
-localStorage.setItem("vhvrOrderId", hasil.orderId);
-localStorage.setItem("vhvrOrderProduk", item.nama);
-    status.textContent =
-  "✅ Pesanan berhasil dikirim!\n" +
-  "🧾 Nomor Pesanan: " + hasil.orderId +
-  "\nTunggu konfirmasi admin sebelum membayar.";
-    this.reset();
-    hargaInput.value="";
-
-  }catch(error){
-    status.textContent=
-      "❌ Pesanan belum terkirim. Silakan coba lagi.";
-  }finally{
-    tombol.disabled=false;
-    tombol.textContent="📩 Kirim Pesanan";
-  }
-});
-</script>
-<script>
-function tampilkanQRIS() {
-  const pembayaran = document.getElementById("pembayaran");
-  const qris = document.getElementById("qrisBox");
-
-  if (pembayaran && qris) {
-    qris.style.display =
-      pembayaran.value === "QRIS" ? "block" : "none";
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-  const pembayaran = document.getElementById("pembayaran");
-
-  if (pembayaran) {
-    pembayaran.addEventListener("change", tampilkanQRIS);
-    tampilkanQRIS();
-  }
-});
-</script>
-<script>
-document.getElementById("sudahBayar").addEventListener("click", async function() {
-  const nama = document.getElementById("nama").value.trim();
-  const produk = document.getElementById("produk");
-  const harga = document.getElementById("harga").value;
-  const kontak = document.getElementById("kontak").value.trim();
-  const status = document.getElementById("statusBayar");
-
- if (!nama || !produk.value || !kontak) {
-    status.textContent = "⚠️ Isi nama, produk, dan kontak terlebih dahulu.";
-    return;
-  }
-
-  this.disabled = true;
-  status.textContent = "Mengirim konfirmasi...";
-
-  try {
-    const response = await fetch(
-      "https://vhvr-notifikasi.dhiermanantasari.workers.dev/order",
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          orderId: localStorage.getItem("vhvrOrderId") || "",
-          product: "KONFIRMASI PEMBAYARAN - " +
-            produk.options[produk.selectedIndex].text,
-          detail:
-            "Pelanggan mengaku sudah membayar.\n" +
-            "Nama: " + nama +
-            "\nHarga: " + harga +
-            "\nKontak: " + kontak +
-            "\nMetode: QRIS\n" +
-            "Status: BELUM DIVERIFIKASI"
-        })
-      }
-    );
-
-    if (!response.ok) throw new Error("Gagal");
-
-    const result = await response.json();
-    if (!result.ok) throw new Error("Gagal");
-
-    status.textContent =
-      "✅ Konfirmasi terkirim. Admin akan memeriksa pembayaran.";
-
-  } catch (error) {
-    status.textContent =
-      "❌ Konfirmasi gagal dikirim. Silakan coba lagi.";
-  } finally {
-    this.disabled = false;
-  }
-});
-</script>
   <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const tombol = document.getElementById("sudahBayar");
+    (() => {
+      "use strict";
+      const API_URL = "https://vhvr-notifikasi.dhiermanantasari.workers.dev/order";
+      const catalog = {
+        gmail: { name: "Bantuan Pembuatan Gmail", price: 5000 },
+        kelola: { name: "Bantuan Pengelolaan Gmail", price: 3000 },
+        nomor: { name: "Nomor Seluler Resmi", price: 10000 }
+      };
+      const form = document.getElementById("orderForm");
+      const productSelect = document.getElementById("produk");
+      const priceInput = document.getElementById("harga");
+      const paymentSelect = document.getElementById("pembayaran");
+      const qrisBox = document.getElementById("qrisBox");
+      const sendButton = document.getElementById("kirim");
+      const statusBox = document.getElementById("status");
+      const rupiah = value => new Intl.NumberFormat("id-ID", {style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
 
-  if (tombol) {
-    tombol.disabled = false;
-  }
-});
+      const telegram = window.Telegram && window.Telegram.WebApp;
+      if (telegram) {
+        telegram.ready();
+        telegram.expand();
+      }
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      function updatePrice() {
+        const item = catalog[productSelect.value];
+        priceInput.value = item ? rupiah(item.price) : "";
+      }
+      function updatePaymentView() {
+        qrisBox.style.display = paymentSelect.value === "QRIS" ? "block" : "none";
+      }
+      function showStatus(message, kind) {
+        statusBox.textContent = message;
+        statusBox.className = "status " + kind;
+      }
+
+      document.querySelectorAll("[data-product]").forEach(button => {
+        button.addEventListener("click", () => {
+          productSelect.value = button.dataset.product;
+          updatePrice();
+          document.getElementById("formPesanan").scrollIntoView({behavior:"smooth",block:"start"});
+          document.getElementById("nama").focus({preventScroll:true});
+        });
+      });
+      productSelect.addEventListener("change", updatePrice);
+      paymentSelect.addEventListener("change", updatePaymentView);
+
+      form.addEventListener("submit", async event => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+
+        const customerName = document.getElementById("nama").value.trim();
+        const product = catalog[productSelect.value];
+        const detail = document.getElementById("detail").value.trim();
+        const contact = document.getElementById("kontak").value.trim();
+        const payment = paymentSelect.value;
+
+        if (!product || !customerName || !detail || !contact || !payment) {
+          showStatus("Periksa kembali. Semua kolom wajib diisi.", "error");
+          return;
+        }
+        if (detail.length > 1000) {
+          showStatus("Detail pesanan terlalu panjang.", "error");
+          return;
+        }
+
+        sendButton.disabled = true;
+        sendButton.textContent = "Mengirim pesanan…";
+        showStatus("Sedang mengirim pesanan ke admin. Mohon tunggu.", "info");
+
+        const payload = {
+          product: product.name,
+          detail:
+            "Nama: " + customerName +
+            "\nHarga: " + rupiah(product.price) +
+            "\nDetail: " + detail +
+            "\nKontak: " + contact +
+            "\nMetode pembayaran pilihan: " + payment
+        };
+
+        try {
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(payload)
+          });
+          let result = {};
+          try { result = await response.json(); } catch (_) {}
+          if (!response.ok || result.ok !== true) {
+            throw new Error(result.message || result.error || "Server belum dapat menerima pesanan.");
+          }
+
+          const orderId = result.orderId || result.order_id || "";
+          if (orderId) {
+            try {
+              localStorage.setItem("vhvrOrderId", String(orderId));
+              localStorage.setItem("vhvrOrderProduk", product.name);
+            } catch (_) {}
+          }
+          form.reset();
+          updatePrice();
+          updatePaymentView();
+          showStatus(
+            "Pesanan berhasil dikirim." +
+            (orderId ? "\nNomor pesanan: " + orderId : "") +
+            "\nSilakan tunggu konfirmasi admin sebelum melakukan pembayaran.",
+            "success"
+          );
+          if (telegram && telegram.HapticFeedback) telegram.HapticFeedback.notificationOccurred("success");
+        } catch (error) {
+          showStatus("Pesanan belum berhasil dikirim. " + (error.message || "Periksa koneksi lalu coba lagi."), "error");
+          if (telegram && telegram.HapticFeedback) telegram.HapticFeedback.notificationOccurred("error");
+        } finally {
+          sendButton.disabled = false;
+          sendButton.textContent = "Kirim pesanan ke admin";
+        }
+      });
+    })();
   </script>
 </body>
 </html>
