@@ -214,10 +214,6 @@
           return;
         }
 
-        sendButton.disabled = true;
-        sendButton.textContent = "Mengirim pesanan…";
-        showStatus("Sedang mengirim pesanan ke admin. Mohon tunggu.", "info");
-
         const orderDetail =
           "Nama: " + customerName +
           "\nHarga: " + rupiah(product.price) +
@@ -229,6 +225,10 @@
           showStatus("Gabungan detail pesanan melebihi batas 500 karakter. Ringkas detail atau kontak Anda.", "error");
           return;
         }
+
+        sendButton.disabled = true;
+        sendButton.textContent = "Mengirim pesanan…";
+        showStatus("Sedang mengirim pesanan ke admin. Mohon tunggu.", "info");
         if (!telegram || !telegram.initData) {
           showStatus("Silakan buka VHVR STORE melalui tombol Menu di Telegram agar akun dapat diverifikasi.", "error");
           return;
