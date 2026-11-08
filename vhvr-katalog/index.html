@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827"><title>VHVR BOT — Katalog Layanan</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#121d2e;--line:#26364d;--muted:#9aabc1;--text:#f4f7fb;--accent:#58d6b0;--blue:#72a7ff;--danger:#ff7b86}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#1a3450 0,transparent 34%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:22px 16px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-weight:850;font-size:21px;letter-spacing:.4px}.brand span{color:var(--accent)}.sub,.muted{color:var(--muted)}.sub{margin:5px 0 20px}.pill{border:1px solid var(--line);padding:7px 11px;border-radius:99px;color:var(--muted);font-size:12px}
+.hero{background:linear-gradient(120deg,#17354a,#18243b);border:1px solid #2d4b60;border-radius:20px;padding:22px;margin:18px 0}.hero h1{font-size:clamp(24px,5vw,36px);margin:0 0 8px}.hero p{margin:0;color:#c1d1df;max-width:650px;line-height:1.55}
+.controls{display:grid;grid-template-columns:1fr 190px;gap:10px;margin:18px 0}.field,select,input,button{font:inherit}.field,select,input{width:100%;background:#0d1726;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:12px;outline:none}.field:focus,select:focus,input:focus{border-color:var(--accent)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}.tab,button{border:1px solid var(--line);background:#172438;color:var(--text);padding:10px 13px;border-radius:10px;cursor:pointer}.tab.active,.primary{background:var(--accent);border-color:var(--accent);color:#06231c;font-weight:750}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.card,.admin{background:rgba(18,29,46,.94);border:1px solid var(--line);border-radius:15px;padding:15px}.card h3{margin:10px 0 5px;font-size:16px}.tag{font-size:11px;color:var(--accent);font-weight:750;text-transform:uppercase;letter-spacing:.6px}.desc{color:var(--muted);font-size:13px;min-height:38px;line-height:1.45}.price{font-size:20px;font-weight:850;margin:12px 0}.small{font-size:12px;color:var(--muted)}.card button{width:100%;margin-top:8px}.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 12px}.section-head h2{margin:0;font-size:19px}.admin{margin-top:30px}.admin summary{cursor:pointer;font-weight:750}.admin-note{font-size:12px;color:#f4c879;line-height:1.5;margin:12px 0}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}.formgrid .wide{grid-column:1/-1}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.danger{color:var(--danger)}.list{margin-top:14px;display:grid;gap:8px}.item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:13px}.item button{padding:7px 9px}.foot{margin-top:24px;text-align:center;color:var(--muted);font-size:12px;line-height:1.6}
+@media(max-width:560px){.controls{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.hero{padding:18px}.wrap{padding-left:13px;padding-right:13px}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="top"><div class="brand">VHVR <span>BOT</span></div><div class="pill">Katalog layanan • versi uji coba</div></header>
+<p class="sub">Pusat layanan digital VHVR</p>
+<section class="hero"><h1>Temukan layanan yang Anda butuhkan.</h1><p>Cari layanan berdasarkan platform atau nama. Pilih layanan untuk melihat ringkasan pesanan. Harga di halaman ini masih contoh dan belum terhubung ke penyedia layanan.</p></section>
+<div class="controls"><input id="search" class="field" placeholder="Cari layanan, misalnya TikTok followers…" aria-label="Cari layanan"><select id="sort" aria-label="Urutkan"><option value="default">Urutan standar</option><option value="low">Harga terendah</option><option value="high">Harga tertinggi</option><option value="name">Nama A–Z</option></select></div>
+<nav class="tabs" id="tabs"><button class="tab active" data-cat="Semua">Semua</button><button class="tab" data-cat="TikTok">TikTok</button><button class="tab" data-cat="Instagram">Instagram</button><button class="tab" data-cat="YouTube">YouTube</button></nav>
+<div class="section-head"><h2>Daftar layanan</h2><span class="small" id="count"></span></div><section id="catalog" class="grid" aria-live="polite"></section>
+<details class="admin"><summary>Panel admin katalog</summary><p class="admin-note">Mode demo: perubahan hanya tersimpan di browser/perangkat ini. Panel ini belum memiliki login aman dan belum mengubah katalog bot Telegram.</p>
+<form id="addForm" class="formgrid">
+<input name="name" placeholder="Nama layanan" required>
+<select name="category"><option>TikTok</option><option>Instagram</option><option>YouTube</option></select>
+<input name="price" type="number" min="1" placeholder="Harga contoh (Rp)" required>
+<input name="min" type="number" min="1" value="100" placeholder="Jumlah minimum">
+<input class="wide" name="description" placeholder="Deskripsi singkat">
+<button class="primary wide" type="submit">Tambah layanan</button></form>
+<div class="actions"><button id="reset">Pulihkan data contoh</button><button id="export">Salin/cadangkan data JSON</button></div><div id="adminList" class="list"></div></details>
+<div class="foot">VHVR BOT • Prototipe katalog terpisah<br>Belum menerima pembayaran atau meneruskan pesanan ke penyedia.</div>
+</main>
+<script>
+const initial=[
+{id:1,name:"TikTok Followers (contoh)",category:"TikTok",price:15000,min:100,description:"Contoh layanan pengikut TikTok untuk pengujian tampilan."},
+{id:2,name:"TikTok Views (contoh)",category:"TikTok",price:5000,min:1000,description:"Contoh layanan tayangan video TikTok."},
+{id:3,name:"Instagram Followers (contoh)",category:"Instagram",price:18000,min:100,description:"Contoh layanan pengikut Instagram."},
+{id:4,name:"Instagram Likes (contoh)",category:"Instagram",price:7000,min:100,description:"Contoh layanan suka pada unggahan Instagram."},
+{id:5,name:"YouTube Views (contoh)",category:"YouTube",price:25000,min:500,description:"Contoh layanan tayangan YouTube."},
+{id:6,name:"YouTube Subscribers (contoh)",category:"YouTube",price:30000,min:100,description:"Contoh layanan subscriber YouTube."}
+];
+const key="vhvr_catalog_demo_v1";let services=load();let category="Semua";
+function load(){try{const x=JSON.parse(localStorage.getItem(key));return Array.isArray(x)?x:initial.map(v=>({...v}))}catch{return initial.map(v=>({...v}))}}
+function save(){localStorage.setItem(key,JSON.stringify(services))}
+function rupiah(n){return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n)}
+function render(){let q=document.getElementById("search").value.toLowerCase();let sort=document.getElementById("sort").value;let a=services.filter(s=>(category==="Semua"||s.category===category)&&[s.name,s.category,s.description].join(" ").toLowerCase().includes(q));if(sort==="low")a.sort((x,y)=>x.price-y.price);if(sort==="high")a.sort((x,y)=>y.price-x.price);if(sort==="name")a.sort((x,y)=>x.name.localeCompare(y.name));document.getElementById("count").textContent=a.length+" layanan";document.getElementById("catalog").innerHTML=a.length?a.map(s=>'<article class="card"><div class="tag">'+esc(s.category)+'</div><h3>'+esc(s.name)+'</h3><div class="desc">'+esc(s.description||"Layanan digital")+'</div><div class="price">'+rupiah(s.price)+'</div><div class="small">Minimum: '+Number(s.min||1).toLocaleString("id-ID")+' • Harga contoh</div><button class="primary" data-order="'+s.id+'">Lihat ringkasan</button></article>').join(""):'<div class="empty">Layanan tidak ditemukan. Coba kata kunci lain.</div>';renderAdmin()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderAdmin(){document.getElementById("adminList").innerHTML=services.map(s=>'<div class="item"><span>'+esc(s.category)+' — '+esc(s.name)+'<br><b>'+rupiah(s.price)+'</b></span><button class="danger" data-delete="'+s.id+'">Hapus</button></div>').join("")||'<p class="small">Belum ada layanan.</p>'}
+document.getElementById("search").addEventListener("input",render);document.getElementById("sort").addEventListener("change",render);
+document.getElementById("tabs").addEventListener("click",e=>{let b=e.target.closest("button[data-cat]");if(!b)return;category=b.dataset.cat;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));render()});
+document.getElementById("catalog").addEventListener("click",e=>{let b=e.target.closest("[data-order]");if(!b)return;let s=services.find(x=>x.id===Number(b.dataset.order));if(!s)return;let summary="RINGKASAN VHVR BOT\nLayanan: "+s.name+"\nPlatform: "+s.category+"\nHarga contoh: "+rupiah(s.price)+"\nMinimum: "+s.min+"\n\nIni hanya simulasi. Belum ada pesanan atau pembayaran yang dikirim.";if(navigator.clipboard?.writeText){navigator.clipboard.writeText(summary).then(()=>alert(summary+"\n\nRingkasan disalin." )).catch(()=>alert(summary))}else alert(summary)});
+document.getElementById("addForm").addEventListener("submit",e=>{e.preventDefault();let f=new FormData(e.target);services.push({id:Date.now(),name:f.get("name").trim(),category:f.get("category"),price:Number(f.get("price")),min:Number(f.get("min"))||1,description:f.get("description").trim()});save();e.target.reset();render()});
+document.getElementById("adminList").addEventListener("click",e=>{let b=e.target.closest("[data-delete]");if(!b)return;services=services.filter(s=>s.id!==Number(b.dataset.delete));save();render()});
+document.getElementById("reset").onclick=()=>{if(confirm("Pulihkan data contoh? Perubahan lokal akan diganti.")){services=initial.map(v=>({...v}));save();render()}};
+document.getElementById("export").onclick=()=>{let t=JSON.stringify(services,null,2);if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>alert("Data JSON disalin."));else prompt("Salin data JSON ini:",t)};
+render();
+</script></body></html>
