@@ -226,13 +226,14 @@
           return;
         }
 
-        sendButton.disabled = true;
-        sendButton.textContent = "Mengirim pesanan…";
-        showStatus("Sedang mengirim pesanan ke admin. Mohon tunggu.", "info");
         if (!telegram || !telegram.initData) {
           showStatus("Silakan buka VHVR STORE melalui tombol Menu di Telegram agar akun dapat diverifikasi.", "error");
           return;
         }
+
+        sendButton.disabled = true;
+        sendButton.textContent = "Mengirim pesanan…";
+        showStatus("Sedang mengirim pesanan ke admin. Mohon tunggu.", "info");
 
         const payload = {
           initData: telegram.initData,
