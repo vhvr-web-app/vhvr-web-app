@@ -218,15 +218,26 @@
         sendButton.textContent = "Mengirim pesanan…";
         showStatus("Sedang mengirim pesanan ke admin. Mohon tunggu.", "info");
 
+        const orderDetail =
+          "Nama: " + customerName +
+          "\nHarga: " + rupiah(product.price) +
+          "\nDetail: " + detail +
+          "\nKontak: " + contact +
+          "\nMetode pembayaran pilihan: " + payment;
+
+        if (orderDetail.length > 500) {
+          showStatus("Gabungan detail pesanan melebihi batas 500 karakter. Ringkas detail atau kontak Anda.", "error");
+          return;
+        }
+        if (!telegram || !telegram.initData) {
+          showStatus("Silakan buka VHVR STORE melalui tombol Menu di Telegram agar akun dapat diverifikasi.", "error");
+          return;
+        }
+
         const payload = {
-          initData: telegram && telegram.initData ? telegram.initData : "",
+          initData: telegram.initData,
           productId: productSelect.value,
-          detail:
-            "Nama: " + customerName +
-            "\nHarga: " + rupiah(product.price) +
-            "\nDetail: " + detail +
-            "\nKontak: " + contact +
-            "\nMetode pembayaran pilihan: " + payment
+          detail: orderDetail
         };
 
         try {
@@ -242,6 +253,14 @@
           }
 
           const orderId = result.orderId || result.order_id || "";
+          if (result.saved === true && result.notified === false) {
+            showStatus(
+              "Pesanan tersimpan dengan nomor " + (orderId || "belum tersedia") +
+              ", tetapi notifikasi admin gagal dikirim. Jangan kirim ulang; hubungi admin dan sebutkan nomor pesanan ini.",
+              "error"
+            );
+            return;
+          }
           if (orderId) {
             try {
               localStorage.setItem("vhvrOrderId", String(orderId));
