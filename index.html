@@ -46,9 +46,12 @@
     textarea{min-height:105px;resize:vertical}
     .hint{display:block;margin-top:6px;color:var(--muted);font-size:12px}
     .notice{margin:15px 0 0;padding:13px;border:1px solid #66532c;border-radius:12px;background:#302717;color:#ffe6a6;font-size:13px}
-    .qris{display:none;margin-top:14px;padding:15px;border:1px solid #3a4b69;border-radius:14px;background:#0b1527;text-align:center}
-    .qr-code{display:flex;justify-content:center;margin:14px auto;padding:10px;background:#fff;border-radius:12px;width:max-content;max-width:100%}
-    .qr-code img,.qr-code canvas{display:block;max-width:100%;height:auto}
+    .qris{display:none;margin-top:18px;padding:20px 16px;border:1px solid #49658d;border-radius:20px;background:linear-gradient(155deg,#162945,#0b1527 72%);text-align:center;box-shadow:0 14px 34px #0004}
+    .qris strong{display:block;font-size:17px;letter-spacing:.01em}
+    .qr-code{display:flex;justify-content:center;align-items:center;margin:18px auto 14px;padding:15px;background:#fff;border:1px solid #dbeafe;border-radius:18px;width:max-content;max-width:100%;box-shadow:0 8px 24px #0003}
+    .qr-code img,.qr-code canvas{display:block;width:min(300px,70vw);height:auto;max-width:100%;image-rendering:pixelated}
+    .qr-caption{margin:0 auto 10px;color:#dbeafe;font-size:13px;font-weight:650}
+    .payment-note{margin:12px auto 0;padding:12px;border:1px solid #38577c;border-radius:12px;background:#10213a;color:#d6e6ff;font-size:13px;line-height:1.55}
     .bank-number{font-size:24px;font-weight:800;letter-spacing:.04em;color:var(--green);margin:12px 0 4px;overflow-wrap:anywhere}
     [hidden]{display:none!important}
     .status{margin-top:14px;padding:12px;border-radius:11px;white-space:pre-line;font-size:14px}
@@ -138,7 +141,7 @@
             <p>Nama pemilik: <strong>Sudirman</strong></p>
             <button class="btn secondary" type="button" id="copySeaBank">Salin nomor rekening</button>
           </div>
-          <p class="hint">Pastikan nama penerima sesuai sebelum membayar. Jangan melakukan pembayaran sebelum admin mengonfirmasi pesanan dan jumlah tagihan. Pembayaran akan diperiksa manual oleh admin.</p>
+          <p class="payment-note">Pastikan nama merchant VHVR DIGITAL STORE terlihat di aplikasi pembayaran. Masukkan nominal sesuai instruksi admin. Simpan bukti pembayaran untuk pemeriksaan manual.</p>
         </div>
 
         <div class="notice">Keamanan: jangan pernah mengirim kata sandi, kode OTP, PIN, atau data rahasia. Pembayaran dilakukan setelah admin mengonfirmasi pesanan.</div>
@@ -205,7 +208,7 @@
       const danaPayload = "00020101021126570011ID.DANA.WWW011893600915300047716402090004771640303UMI51440014ID.CO.QRIS.WWW0215ID10265743680430303UMI5204899953033605802ID5925VHVR DIGITAL STORE, Servi6012Kota Bontang61057531463047A02";
       const gopayPayload = "00020101021126610014COM.GO-JEK.WWW01189360091435311493980210G5311493980303UMI51440014ID.CO.QRIS.WWW0215ID10264688210990303UMI5204899953033605802ID5918VHVR DIGITAL STORE6007BONTANG61057532162070703A01630452F8";
       if (window.QRCode) {
-        new QRCode(document.getElementById("qrisDanaCode"), {text:danaPayload,width:260,height:260,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+        new QRCode(document.getElementById("qrisDanaCode"), {text:danaPayload,width:300,height:300,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
         new QRCode(document.getElementById("qrisGopayCode"), {text:gopayPayload,width:260,height:260,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
       } else {
         document.getElementById("qrisDanaCode").textContent = "Kode QR belum dapat dimuat. Hubungi admin.";
