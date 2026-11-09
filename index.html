@@ -7,6 +7,7 @@
   <meta name="description" content="VHVR STORE — katalog layanan dan pemesanan yang mudah melalui Telegram.">
   <title>VHVR STORE — Layanan Digital</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root{color-scheme:dark;--bg:#0b1020;--surface:#121c32;--surface2:#182641;--line:#2b3a58;--text:#f8fafc;--muted:#b6c3d8;--blue:#60a5fa;--green:#4ade80;--radius:20px}
     *{box-sizing:border-box}
@@ -46,7 +47,10 @@
     .hint{display:block;margin-top:6px;color:var(--muted);font-size:12px}
     .notice{margin:15px 0 0;padding:13px;border:1px solid #66532c;border-radius:12px;background:#302717;color:#ffe6a6;font-size:13px}
     .qris{display:none;margin-top:14px;padding:15px;border:1px solid #3a4b69;border-radius:14px;background:#0b1527;text-align:center}
-    .qris img{display:block;width:min(100%,270px);height:auto;margin:12px auto;border-radius:12px;background:white}
+    .qr-code{display:flex;justify-content:center;margin:14px auto;padding:10px;background:#fff;border-radius:12px;width:max-content;max-width:100%}
+    .qr-code img,.qr-code canvas{display:block;max-width:100%;height:auto}
+    .bank-number{font-size:24px;font-weight:800;letter-spacing:.04em;color:var(--green);margin:12px 0 4px;overflow-wrap:anywhere}
+    [hidden]{display:none!important}
     .status{margin-top:14px;padding:12px;border-radius:11px;white-space:pre-line;font-size:14px}
     .status:empty{display:none}
     .status.success{border:1px solid #23754a;background:#102b20;color:#bbf7d0}
@@ -114,17 +118,27 @@
         <label for="pembayaran">Metode pembayaran pilihan</label>
         <select id="pembayaran" name="pembayaran" required>
           <option value="">Pilih metode pembayaran</option>
-          <option value="QRIS">QRIS</option>
-          <option value="DANA">DANA</option>
-          <option value="GoPay">GoPay</option>
-          <option value="OVO">OVO</option>
-          <option value="Transfer Bank">Transfer Bank</option>
+          <option value="QRIS DANA">QRIS DANA</option>
+          <option value="QRIS GoPay Merchant">QRIS GoPay Merchant</option>
+          <option value="Transfer SeaBank">Transfer SeaBank</option>
         </select>
 
-        <div class="qris" id="qrisBox">
-          <strong>Metode pilihan: QRIS</strong>
-          <img src="qris.png" alt="Kode QRIS VHVR STORE" loading="lazy">
-          <p class="hint">Jangan melakukan pembayaran sebelum admin mengonfirmasi pesanan dan jumlah tagihan. Bukti pembayaran akan diperiksa oleh admin.</p>
+        <div class="qris" id="paymentBox">
+          <div id="qrisDanaPanel" hidden>
+            <strong>QRIS DANA — VHVR DIGITAL STORE</strong>
+            <div id="qrisDanaCode" class="qr-code" aria-label="Kode QRIS DANA"></div>
+          </div>
+          <div id="qrisGopayPanel" hidden>
+            <strong>QRIS GoPay Merchant — VHVR DIGITAL STORE</strong>
+            <div id="qrisGopayCode" class="qr-code" aria-label="Kode QRIS GoPay Merchant"></div>
+          </div>
+          <div id="seabankPanel" hidden>
+            <strong>Transfer SeaBank</strong>
+            <p class="bank-number">901589837379</p>
+            <p>Nama pemilik: <strong>Sudirman</strong></p>
+            <button class="btn secondary" type="button" id="copySeaBank">Salin nomor rekening</button>
+          </div>
+          <p class="hint">Pastikan nama penerima sesuai sebelum membayar. Jangan melakukan pembayaran sebelum admin mengonfirmasi pesanan dan jumlah tagihan. Pembayaran akan diperiksa manual oleh admin.</p>
         </div>
 
         <div class="notice">Keamanan: jangan pernah mengirim kata sandi, kode OTP, PIN, atau data rahasia. Pembayaran dilakukan setelah admin mengonfirmasi pesanan.</div>
@@ -159,7 +173,10 @@
       const productSelect = document.getElementById("produk");
       const priceInput = document.getElementById("harga");
       const paymentSelect = document.getElementById("pembayaran");
-      const qrisBox = document.getElementById("qrisBox");
+      const paymentBox = document.getElementById("paymentBox");
+      const qrisDanaPanel = document.getElementById("qrisDanaPanel");
+      const qrisGopayPanel = document.getElementById("qrisGopayPanel");
+      const seabankPanel = document.getElementById("seabankPanel");
       const sendButton = document.getElementById("kirim");
       const statusBox = document.getElementById("status");
       const rupiah = value => new Intl.NumberFormat("id-ID", {style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
@@ -177,8 +194,32 @@
         priceInput.value = item ? rupiah(item.price) : "";
       }
       function updatePaymentView() {
-        qrisBox.style.display = paymentSelect.value === "QRIS" ? "block" : "none";
+        const choice = paymentSelect.value;
+        const show = Boolean(choice);
+        paymentBox.style.display = show ? "block" : "none";
+        qrisDanaPanel.hidden = choice !== "QRIS DANA";
+        qrisGopayPanel.hidden = choice !== "QRIS GoPay Merchant";
+        seabankPanel.hidden = choice !== "Transfer SeaBank";
       }
+
+      const danaPayload = "00020101021126570011ID.DANA.WWW011893600915300047716402090004771640303UMI51440014ID.CO.QRIS.WWW0215ID10265743680430303UMI5204899953033605802ID5925VHVR DIGITAL STORE, Servi6012Kota Bontang61057531463047A02";
+      const gopayPayload = "00020101021126610014COM.GO-JEK.WWW01189360091435311493980210G5311493980303UMI51440014ID.CO.QRIS.WWW0215ID10264688210990303UMI5204899953033605802ID5918VHVR DIGITAL STORE6007BONTANG61057532162070703A01630452F8";
+      if (window.QRCode) {
+        new QRCode(document.getElementById("qrisDanaCode"), {text:danaPayload,width:260,height:260,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+        new QRCode(document.getElementById("qrisGopayCode"), {text:gopayPayload,width:260,height:260,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+      } else {
+        document.getElementById("qrisDanaCode").textContent = "Kode QR belum dapat dimuat. Hubungi admin.";
+        document.getElementById("qrisGopayCode").textContent = "Kode QR belum dapat dimuat. Hubungi admin.";
+      }
+
+      document.getElementById("copySeaBank").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText("901589837379");
+          document.getElementById("copySeaBank").textContent = "Nomor rekening tersalin";
+        } catch (_) {
+          document.getElementById("copySeaBank").textContent = "Salin manual: 901589837379";
+        }
+      });
       function showStatus(message, kind) {
         statusBox.textContent = message;
         statusBox.className = "status " + kind;
