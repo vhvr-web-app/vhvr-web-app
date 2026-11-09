@@ -100,6 +100,12 @@
     <section class="panel" id="formPesanan" aria-labelledby="orderTitle">
       <h2 id="orderTitle">Buat pesanan</h2>
       <p class="sub">Isi data yang diperlukan. Admin akan menerima detail pesanan Anda.</p>
+      <div id="browserLogin" class="notice" style="display:none">
+          <strong>Login dengan Telegram untuk memesan</strong>
+          <p style="margin:6px 0 10px">Masuk menggunakan akun Telegram Anda. Kami tidak meminta kata sandi atau kode OTP.</p>
+          <div id="telegramLoginWidget"></div>
+          <p id="loginStatus" class="hint">Login diperlukan sebelum mengirim pesanan.</p>
+        </div>
       <form id="orderForm">
         <label for="nama">Nama pelanggan</label>
         <input id="nama" name="nama" autocomplete="name" maxlength="80" placeholder="Masukkan nama Anda" required>
@@ -193,7 +199,28 @@
       const statusBox = document.getElementById("status");
       const rupiah = value => new Intl.NumberFormat("id-ID", {style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
 
+      let browserLoginData = null;
+      const browserLoginBox = document.getElementById("browserLogin");
+      const loginStatus = document.getElementById("loginStatus");
       const telegram = window.Telegram && window.Telegram.WebApp;
+      const isTelegramMiniApp = Boolean(telegram && telegram.initData);
+
+      if (!isTelegramMiniApp) {
+        browserLoginBox.style.display = "block";
+        window.onTelegramAuth = function(user) {
+          browserLoginData = user;
+          loginStatus.textContent = "Login berhasil. Anda dapat mengirim pesanan.";
+          loginStatus.style.color = "#4ade80";
+        };
+        const widget = document.createElement("script");
+        widget.async = true;
+        widget.src = "https://telegram.org/js/telegram-widget.js?22";
+        widget.setAttribute("data-telegram-login", "VHVR_Bot");
+        widget.setAttribute("data-size", "large");
+        widget.setAttribute("data-userpic", "false");
+        widget.setAttribute("data-onauth", "onTelegramAuth(user)");
+        document.getElementById("telegramLoginWidget").appendChild(widget);
+      }
       if (telegram) {
         telegram.ready();
         telegram.expand();
@@ -269,8 +296,10 @@
           return;
         }
 
-        if (!telegram || !telegram.initData) {
-          showStatus("Silakan buka VHVR STORE melalui tombol Menu di Telegram agar akun dapat diverifikasi.", "error");
+        if (isTelegramMiniApp && telegram.initData) {
+          // Mini App: autentikasi diverifikasi melalui initData di Worker.
+        } else if (!browserLoginData) {
+          showStatus("Silakan login menggunakan tombol Telegram sebelum mengirim pesanan.", "error");
           return;
         }
 
@@ -279,7 +308,9 @@
         showStatus("Sedang mengirim pesanan ke admin. Mohon tunggu.", "info");
 
         const payload = {
-          initData: telegram.initData,
+          ...(isTelegramMiniApp
+            ? { initData: telegram.initData }
+            : { loginData: browserLoginData }),
           productId: productSelect.value,
           detail: orderDetail
         };
