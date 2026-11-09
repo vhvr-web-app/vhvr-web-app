@@ -46,12 +46,15 @@
     textarea{min-height:105px;resize:vertical}
     .hint{display:block;margin-top:6px;color:var(--muted);font-size:12px}
     .notice{margin:15px 0 0;padding:13px;border:1px solid #66532c;border-radius:12px;background:#302717;color:#ffe6a6;font-size:13px}
-    .qris{display:none;margin-top:18px;padding:18px 14px;border:1px solid #d7e2f0;border-radius:22px;background:#f8fafc;text-align:center;box-shadow:0 12px 30px #0003;color:#142033}
-    .qris strong{display:block;font-size:18px;letter-spacing:.01em;color:#142033}
-    .qr-code{display:flex;justify-content:center;align-items:center;margin:16px auto 12px;padding:12px;background:#fff;border:2px solid #e2e8f0;border-radius:18px;width:max-content;max-width:100%;box-shadow:0 8px 22px #0f172a18}
-    .qr-code img,.qr-code canvas{display:block;width:min(340px,78vw);height:auto;max-width:100%;image-rendering:pixelated}
-    .qr-caption{margin:0 auto 10px;color:#475569;font-size:13px;font-weight:700}
-    .payment-note{margin:12px auto 0;padding:12px;border:1px solid #dbeafe;border-radius:13px;background:#eff6ff;color:#334155;font-size:13px;line-height:1.6}
+    .qris{display:none;margin-top:18px;padding:20px 16px;border:1px solid #dbe4ef;border-radius:24px;background:#fff;text-align:center;box-shadow:0 14px 34px #0002;color:#142033}
+    .payment-brand{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 12px;padding:8px 15px;border-radius:999px;background:#eff6ff;color:#1557b0;font-size:13px;font-weight:850;letter-spacing:.03em}
+    .payment-brand.gopay{background:#eafaf2;color:#087443}
+    .qris strong{display:block;font-size:19px;line-height:1.35;letter-spacing:.01em;color:#142033}
+    .merchant-name{margin:7px 0 0;color:#64748b;font-size:13px;font-weight:700;letter-spacing:.04em}
+    .qr-code{display:flex;justify-content:center;align-items:center;margin:17px auto 12px;padding:12px;background:#fff;border:1px solid #e2e8f0;border-radius:18px;width:max-content;max-width:100%;box-shadow:0 8px 22px #0f172a12}
+    .qr-code img,.qr-code canvas{display:block;width:min(320px,76vw);height:auto;max-width:100%;object-fit:contain;image-rendering:auto}
+    .qr-caption{margin:0 auto 10px;color:#334155;font-size:13px;font-weight:750}
+    .payment-note{margin:14px auto 0;padding:13px;border:1px solid #dbeafe;border-radius:14px;background:#eff6ff;color:#334155;font-size:13px;line-height:1.6}
     .bank-number{font-size:24px;font-weight:800;letter-spacing:.04em;color:var(--green);margin:12px 0 4px;overflow-wrap:anywhere}
     [hidden]{display:none!important}
     .status{margin-top:14px;padding:12px;border-radius:11px;white-space:pre-line;font-size:14px}
@@ -128,12 +131,18 @@
 
         <div class="qris" id="paymentBox">
           <div id="qrisDanaPanel" hidden>
-            <strong>QRIS DANA — VHVR DIGITAL STORE</strong>
-            <div class="qr-code"><img src="./assets/qris-dana.png" alt="QRIS asli DANA VHVR DIGITAL STORE" loading="lazy"></div><p class="qr-caption">Pindai dengan aplikasi yang mendukung QRIS</p>
+            <div class="payment-brand" aria-label="Metode pembayaran DANA">DANA</div>
+            <strong>Scan QRIS untuk membayar</strong>
+            <p class="merchant-name">VHVR DIGITAL STORE</p>
+            <div class="qr-code"><img src="./assets/qris-dana.png" alt="QRIS asli DANA VHVR DIGITAL STORE" loading="lazy"></div>
+            <p class="qr-caption">Buka aplikasi pembayaran lalu pindai kode QR di atas</p>
           </div>
           <div id="qrisGopayPanel" hidden>
-            <strong>QRIS GoPay Merchant — VHVR DIGITAL STORE</strong>
-            <div class="qr-code"><img src="./assets/qris-gopay.png" alt="QRIS asli GoPay Merchant VHVR DIGITAL STORE" loading="lazy"></div><p class="qr-caption">Pindai dengan aplikasi yang mendukung QRIS</p>
+            <div class="payment-brand gopay" aria-label="Metode pembayaran GoPay">GoPay</div>
+            <strong>Scan QRIS untuk membayar</strong>
+            <p class="merchant-name">VHVR DIGITAL STORE</p>
+            <div class="qr-code"><img src="./assets/qris-gopay.png" alt="QRIS asli GoPay Merchant VHVR DIGITAL STORE" loading="lazy"></div>
+            <p class="qr-caption">Buka aplikasi pembayaran lalu pindai kode QR di atas</p>
           </div>
           <div id="seabankPanel" hidden>
             <strong>Transfer SeaBank</strong>
