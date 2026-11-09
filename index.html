@@ -129,11 +129,11 @@
         <div class="qris" id="paymentBox">
           <div id="qrisDanaPanel" hidden>
             <strong>QRIS DANA — VHVR DIGITAL STORE</strong>
-            <div id="qrisDanaCode" class="qr-code" aria-label="Kode QRIS DANA"></div>
+            <div class="qr-code"><img src="./assets/qris-dana.png" alt="QRIS asli DANA VHVR DIGITAL STORE" loading="lazy"></div><p class="qr-caption">Pindai dengan aplikasi yang mendukung QRIS</p>
           </div>
           <div id="qrisGopayPanel" hidden>
             <strong>QRIS GoPay Merchant — VHVR DIGITAL STORE</strong>
-            <div id="qrisGopayCode" class="qr-code" aria-label="Kode QRIS GoPay Merchant"></div>
+            <div class="qr-code"><img src="./assets/qris-gopay.png" alt="QRIS asli GoPay Merchant VHVR DIGITAL STORE" loading="lazy"></div><p class="qr-caption">Pindai dengan aplikasi yang mendukung QRIS</p>
           </div>
           <div id="seabankPanel" hidden>
             <strong>Transfer SeaBank</strong>
@@ -203,16 +203,6 @@
         qrisDanaPanel.hidden = choice !== "QRIS DANA";
         qrisGopayPanel.hidden = choice !== "QRIS GoPay Merchant";
         seabankPanel.hidden = choice !== "Transfer SeaBank";
-      }
-
-      const danaPayload = "00020101021126570011ID.DANA.WWW011893600915300047716402090004771640303UMI51440014ID.CO.QRIS.WWW0215ID10265743680430303UMI5204899953033605802ID5925VHVR DIGITAL STORE, Servi6012Kota Bontang61057531463047A02";
-      const gopayPayload = "00020101021126610014COM.GO-JEK.WWW01189360091435311493980210G5311493980303UMI51440014ID.CO.QRIS.WWW0215ID10264688210990303UMI5204899953033605802ID5918VHVR DIGITAL STORE6007BONTANG61057532162070703A01630452F8";
-      if (window.QRCode) {
-        new QRCode(document.getElementById("qrisDanaCode"), {text:danaPayload,width:300,height:300,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
-        new QRCode(document.getElementById("qrisGopayCode"), {text:gopayPayload,width:260,height:260,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
-      } else {
-        document.getElementById("qrisDanaCode").textContent = "Kode QR belum dapat dimuat. Hubungi admin.";
-        document.getElementById("qrisGopayCode").textContent = "Kode QR belum dapat dimuat. Hubungi admin.";
       }
 
       document.getElementById("copySeaBank").addEventListener("click", async () => {
