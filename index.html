@@ -51,8 +51,8 @@
     .payment-brand.gopay{background:#eafaf2;color:#087443}
     .qris strong{display:block;font-size:19px;line-height:1.35;letter-spacing:.01em;color:#142033}
     .merchant-name{margin:7px 0 0;color:#64748b;font-size:13px;font-weight:700;letter-spacing:.04em}
-    .qr-code{display:flex;justify-content:center;align-items:center;margin:17px auto 12px;padding:12px;background:#fff;border:1px solid #e2e8f0;border-radius:18px;width:max-content;max-width:100%;box-shadow:0 8px 22px #0f172a12}
-    .qr-code img,.qr-code canvas{display:block;width:min(320px,76vw);height:auto;max-width:100%;object-fit:contain;image-rendering:auto}
+    .qr-code{display:flex;justify-content:center;align-items:center;margin:17px auto 12px;padding:0;background:transparent;border:0;border-radius:0;width:100%;max-width:100%;box-shadow:none}
+    .qr-code img,.qr-code canvas{display:block;width:min(420px,90vw);height:auto;max-width:100%;object-fit:contain;image-rendering:auto}
     .qr-caption{margin:0 auto 10px;color:#334155;font-size:13px;font-weight:750}
     .payment-note{margin:14px auto 0;padding:13px;border:1px solid #dbeafe;border-radius:14px;background:#eff6ff;color:#334155;font-size:13px;line-height:1.6}
     .bank-number{font-size:24px;font-weight:800;letter-spacing:.04em;color:var(--green);margin:12px 0 4px;overflow-wrap:anywhere}
@@ -134,14 +134,14 @@
             <div class="payment-brand" aria-label="Metode pembayaran DANA">DANA</div>
             <strong>Scan QRIS untuk membayar</strong>
             <p class="merchant-name">VHVR DIGITAL STORE</p>
-            <div class="qr-code"><img src="./assets/qris-dana-1200.jpg" alt="QRIS asli DANA VHVR DIGITAL STORE" loading="lazy"></div>
+            <div class="qr-code"><img src="./assets/qris-dana-1200.jpg?v=20261109" alt="QRIS asli DANA VHVR DIGITAL STORE" loading="lazy"></div>
             <p class="qr-caption">Buka aplikasi pembayaran lalu pindai kode QR di atas</p>
           </div>
           <div id="qrisGopayPanel" hidden>
             <div class="payment-brand gopay" aria-label="Metode pembayaran GoPay">GoPay</div>
             <strong>Scan QRIS untuk membayar</strong>
             <p class="merchant-name">VHVR DIGITAL STORE</p>
-            <div class="qr-code"><img src="./assets/qris-gopay-1200.png" alt="QRIS asli GoPay Merchant VHVR DIGITAL STORE" loading="lazy"></div>
+            <div class="qr-code"><img src="./assets/qris-gopay-1200.png?v=20261109" alt="QRIS asli GoPay Merchant VHVR DIGITAL STORE" loading="lazy"></div>
             <p class="qr-caption">Buka aplikasi pembayaran lalu pindai kode QR di atas</p>
           </div>
           <div id="seabankPanel" hidden>
